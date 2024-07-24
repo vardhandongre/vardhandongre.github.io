@@ -34,7 +34,57 @@ excerpt: Vardhan Dongre | UIUC
   <!-- Favicons
   ================================================== -->
   <link rel="shortcut icon" href="./scribble2.png">
-
+    <style>
+        /* Additional styles */
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .social-button {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 15px;
+            background-color: #4285F4;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .social-button:hover {
+            background-color: #3367D6;
+        }
+        #publications {
+            margin-top: 30px;
+        }
+        #publications h3 {
+            color: #333;
+            border-bottom: 2px solid #4285F4;
+            padding-bottom: 10px;
+        }
+        .publication-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .publication-title {
+            font-weight: bold;
+            color: #4285F4;
+        }
+        .publication-authors {
+            font-style: italic;
+            margin: 5px 0;
+        }
+        .publication-links a {
+            margin-right: 10px;
+            color: #4285F4;
+            text-decoration: none;
+        }
+        .publication-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
   
 </head>
 <body>
@@ -69,7 +119,11 @@ excerpt: Vardhan Dongre | UIUC
 <!--         <li><a href="https://github.com/vardhandongre" target="_blank"><span class='blue'>Github</span></a></li>
         <li><a href="https://gitlab.engr.illinois.edu/vdongre2" target="_blank"><span class='blue'>Gitlab</span></a></li> -->
 <!--         <li><a href="https://www.linkedin.com/in/vardhandongre/" target="_blank"><span class='blue'>LinkedIn</span></a></li> -->
-        <li><a href="./assets/resume/CV_neurips23.pdf" target="_blank"><span class='blue'>CV</span></a></li>
+<!--         <li><a href="./assets/resume/CV_neurips23.pdf" target="_blank"><span class='blue'>CV</span></a></li> -->
+        <div class="social-buttons">
+                <a href="https://scholar.google.com/citations?user=YOUR_GOOGLE_SCHOLAR_ID" target="_blank" class="social-button">Google Scholar</a>
+                <a href="./assets/resume/CV_neurips23.pdf" target="_blank" class="social-button">CV</a>
+        </div>
               <li id="twitter-feed">
         <a href="https://twitter.com/Vardhan_Dongre?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @Vardhan_Dongre</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
       </li>
@@ -160,11 +214,11 @@ excerpt: Vardhan Dongre | UIUC
       
 <!--         <hr />
         <div class="doc-section" id="patent">
-          <h3>Presentations</h3>
+          <h3>Publications</h3>
           <ol>
             
             <li>
-              <strong>DeepXplore: Automated Whitebox Testing of Deep Learning Systems</strong><br/>
+              <strong>Evaluating Uncertainty Quantification approaches for Neural PDEs in scientific applications</strong><br/>
               Authors: Kexin Pei, Yinzhi Cao, Junfeng Yang, Suman Jana<br/>
               [<a href="https://arxiv.org/abs/1705.06640" target="_blank">Original Paper</a>]
               [<a href="https://drive.google.com/file/d/1wiCKPVul8_kQJLr0mPi7_yro_tNZUKzf/view?usp=sharing" target="_blank">Presentation (CS598-GW)</a>]
