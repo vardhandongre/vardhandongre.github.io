@@ -247,7 +247,7 @@
                                     </div>
                                     <div class="col-sm-10 col-xs-10">
                                         <div class="row">
-                                            <span id="publication2"><b>Vardhan Dongre</b>, Xiaocheng Yang, Emre Can Acikgoz, Suvodip Dey, Gokhan Tur, Dilek Hakkani Tur (2024). <i>ReSpAct: Harmonizing Reasoning, Speaking, and Acting Towards Building Large Language Model-Based Conversational AI Agents</i>. arXiv:2411.00927.</span>
+                                            <span id="publication2"><b>Vardhan Dongre</b>, Xiaocheng Yang, Emre Can Acikgoz, Suvodip Dey, Gokhan Tur, Dilek Hakkani Tur (2024). <i>ReSpAct: Harmonizing Reasoning, Speaking, and Acting Towards Building Large Language Model-Based Conversational AI Agents</i>. arXiv:2411.00927.</span> <font color="red">[Accepted as Oral at IWSDS 2025]</font>
                                         </div>
                                         <button class="btn btn-secondary btn-xs" style="padding: 3px 10px;" onclick="toggleBibtex('publication2Bib')">BIB</button>
                                         <button class="btn btn-secondary btn-xs" style="padding: 3px 10px;" onclick="toggleAbstract('publication2Abstract')">ABSTRACT</button>
@@ -263,43 +263,11 @@
                                         </div>
 
                                         <div id="publication2Abstract" class="abstract-container" style="display: none;">
-                                            <pre class="abstract-text">Large language model (LLM)-based agents are
-                                                increasingly employed to interact with external
-                                                environments (e.g., games, APIs, world mod-
-                                                els) to solve user-provided tasks. However, cur-
-                                                rent frameworks often lack the ability to collab-
-                                                orate effectively with users in fully conversa-
-                                                tional settings. Conversations are essential for
-                                                aligning on task details, achieving user-defined
-                                                goals, and satisfying preferences. While exist-
-                                                ing agents address ambiguity through clarifica-
-                                                tion questions (Li et al., 2023; Zhang and Choi,
-                                                2023; Chen et al., 2023), they underutilize the
-                                                broader potential of a LLMs conversational ca-
-                                                pabilities. In this work, we introduce ReSpAct,
-                                                an LLM-based agent designed to seamlessly
-                                                integrate reasoning, decision-making, and dy-
-                                                namic dialogue for task-solving. Expanding
-                                                on reasoning-first approaches like ReAct (Yao
-                                                et al., 2022b), ReSpAct employs active, free-
-                                                flowing dialogues to interpret instructions, clar-
-                                                ify goals, provide status updates, resolve sub-
-                                                task failures, and refine plans based on user in-
-                                                puts without any explicit dialogue schema. By
-                                                alternating between task-solving actions and in-
-                                                teractive conversations, ReSpAct demonstrates
-                                                improved performance across diverse environ-
-                                                ments. We evaluate ReSpAct in user-interactive
-                                                settings, including task-oriented dialogue sys-
-                                                tems (MultiWOZ) and decision-making tasks
-                                                (Alfworld, WebShop). ReSpAct outperforms
-                                                ReAct with absolute success rate improvements
-                                                of 6% and 4% in Alfworld and WebShop, re-
-                                                spectively, and achieves a 5.5% gain in Inform
-                                                and a 3% gain in Success scores in MultiWOZ.
-                                                These results highlight the value of integrat-
-                                                ing dynamic user-agent collaboration for more
-                                                effective task resolution.</pre>
+                                            <pre class="abstract-text">Large language model (LLM)-based agents are increasingly employed to interact with external environments (e.g., games, APIs, world models) to solve user-provided tasks. However, current frameworks often lack the ability to collaborate effectively with users in fully conversational settings. Conversations are essential for aligning on task details, achieving user-defined goals, and satisfying preferences. While existing agents address ambiguity through clarification questions (Li et al., 2023; Zhang and Choi, 2023; Chen et al., 2023), they underutilize the broader potential of a LLMs conversational capabilities. 
+
+In this work, we introduce ReSpAct, an LLM-based agent designed to seamlessly integrate reasoning, decision-making, and dynamic dialogue for task-solving. Expanding on reasoning-first approaches like ReAct (Yao et al., 2022b), ReSpAct employs active, free-flowing dialogues to interpret instructions, clarify goals, provide status updates, resolve sub-task failures, and refine plans based on user inputs without any explicit dialogue schema. 
+
+By alternating between task-solving actions and interactive conversations, ReSpAct demonstrates improved performance across diverse environments. We evaluate ReSpAct in user-interactive settings, including task-oriented dialogue systems (MultiWOZ) and decision-making tasks (Alfworld, WebShop). ReSpAct outperforms ReAct with absolute success rate improvements of 6% and 4% in Alfworld and WebShop, respectively, and achieves a 5.5% gain in Inform and a 3% gain in Success scores in MultiWOZ. These results highlight the value of integrating dynamic user-agent collaboration for more effective task resolution.</pre>
                                         </div>
                                     </div>
                                     <div class="col-sm-2 col-xs-2 d-none d-md-block" style="margin:0; padding:0; margin-top:3px;">
@@ -323,30 +291,13 @@
                                         </div>
 
                                         <div id="publication3Abstract" class="abstract-container" style="display: none;">
-                                            <pre class="abstract-text">Embodied agents designed to assist users with tasks must possess the ability
-                                                to engage in natural language interactions, interpret user instructions, execute
-                                                actions to complete tasks and communicate effectively to resolve issues. However,
-                                                collecting large-scale, diverse datasets of situated human-robot dialogues to train
-                                                and evaluate such agents is expensive, labor-intensive, and time-consuming. To
-                                                address this challenge, we propose building a large language model (LLM)-based
-                                                user agent that can simulate user behavior during interactions with an embodied
-                                                agent in a virtual environment. Given a specific user goal (e.g., make breakfast), at
-                                                each time step during an interaction with an embodied agent (or a robot), the user
-                                                agent may "observe" the robot actions or "speak" to either proactively intervene
-                                                with the robot behavior or reactively answer the robots questions. Such a user
-                                                agent assists in improving the scalability and efficiency of embodied dialogues
-                                                dataset generation and is critical for enhancing and evaluating the robots interaction
-                                                and task completion ability, as well as for future research, such as reinforcement
-                                                learning using AI feedback. We evaluate our user agents ability to generate humanlike behaviors by comparing its simulated dialogues with the benchmark TEACh
-                                                dataset. We perform three experiments: zero-shot prompting to predict the dialogue
-                                                act from history, few-shot prompting, and fine-tuning on the TEACh training subset.
-                                                Our results demonstrate that the LLM-based user agent can achieve an F-measure
-                                                of 42% in mimicking human speaking behavior with simple zero-shot prompting
-                                                and 43.4% with few-shot prompting. Through fine-tuning, we achieved similar
-                                                success in deciding when to speak but much greater success in deciding what to
-                                                say, from 51.1% to 62.5%. These findings showcase the feasibility and promise of
-                                                the proposed approach for assessing and enhancing the effectiveness and reliability
-                                                of robot task completion through natural language communication.</pre>
+                                            <pre class="abstract-text">Embodied agents designed to assist users with tasks must possess the ability to engage in natural language interactions, interpret user instructions, execute actions to complete tasks and communicate effectively to resolve issues. However, collecting large-scale, diverse datasets of situated human-robot dialogues to train and evaluate such agents is expensive, labor-intensive, and time-consuming. 
+
+To address this challenge, we propose building a large language model (LLM)-based user agent that can simulate user behavior during interactions with an embodied agent in a virtual environment. Given a specific user goal (e.g., make breakfast), at each time step during an interaction with an embodied agent (or a robot), the user agent may "observe" the robot actions or "speak" to either proactively intervene with the robot behavior or reactively answer the robots questions. 
+
+Such a user agent assists in improving the scalability and efficiency of embodied dialogues dataset generation and is critical for enhancing and evaluating the robots interaction and task completion ability, as well as for future research, such as reinforcement learning using AI feedback. We evaluate our user agents ability to generate human-like behaviors by comparing its simulated dialogues with the benchmark TEACh dataset. 
+
+We perform three experiments: zero-shot prompting to predict the dialogue act from history, few-shot prompting, and fine-tuning on the TEACh training subset. Our results demonstrate that the LLM-based user agent can achieve an F-measure of 42% in mimicking human speaking behavior with simple zero-shot prompting and 43.4% with few-shot prompting. Through fine-tuning, we achieved similar success in deciding when to speak but much greater success in deciding what to say, from 51.1% to 62.5%. These findings showcase the feasibility and promise of the proposed approach for assessing and enhancing the effectiveness and reliability of robot task completion through natural language communication.</pre>
                                         </div>
                                     </div>
                                     <div class="col-sm-2 col-xs-2 d-none d-md-block" style="margin:0; padding:0; margin-top:3px;">
