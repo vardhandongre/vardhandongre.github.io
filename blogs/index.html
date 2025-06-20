@@ -46,6 +46,9 @@
       margin-bottom: 30px;
       overflow: hidden;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 500px;
+      display: flex;
+      flex-direction: column;
     }
     
     .blog-card:hover {
@@ -58,6 +61,7 @@
       background: linear-gradient(45deg, #667eea, #764ba2);
       position: relative;
       overflow: hidden;
+      flex-shrink: 0;
     }
     
     .blog-card-image img {
@@ -85,6 +89,9 @@
     
     .blog-card-content {
       padding: 25px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
     
     .blog-card-title {
@@ -99,6 +106,7 @@
       color: #666;
       line-height: 1.6;
       margin-bottom: 20px;
+      flex: 1;
     }
     
     .blog-card-meta {
@@ -317,6 +325,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <div class="blog-card-meta">
                 <span class="blog-card-date"><i class="far fa-clock"></i> Coming Soon</span>
                 <span class="blog-card-category">Scientific Computing</span>
+              </div>
+              <button class="read-more-btn" disabled style="opacity: 0.6; cursor: not-allowed;">
+                <i class="fas fa-clock"></i> Coming Soon
+              </button>
+            </div>
+          </div>
+
+          <!-- Model Context Protocol Card -->
+          <div class="blog-card">
+            <div class="blog-card-image" style="background: linear-gradient(45deg, #a55eea, #8854d0);">
+              <div class="overlay">
+                <i class="fas fa-network-wired"></i>
+              </div>
+            </div>
+            <div class="blog-card-content">
+              <h3 class="blog-card-title">Understanding Model Context Protocol</h3>
+              <p class="blog-card-excerpt">
+                A comprehensive exploration of Model Context Protocol and its implications for AI systems. We'll dive into how this protocol enhances model understanding, improves context management, and enables more sophisticated AI interactions.
+              </p>
+              <div class="blog-card-meta">
+                <span class="blog-card-date"><i class="far fa-clock"></i> Coming Soon</span>
+                <span class="blog-card-category">AI Protocols</span>
               </div>
               <button class="read-more-btn" disabled style="opacity: 0.6; cursor: not-allowed;">
                 <i class="fas fa-clock"></i> Coming Soon
