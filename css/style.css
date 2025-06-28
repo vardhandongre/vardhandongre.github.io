@@ -53,3 +53,17 @@ a
     height: 3em;
     margin: 5px;
 }
+
+.publications-link
+{
+    font-family: 'DM Mono', monospace;
+    font-size: 1.1em;
+    color: #888;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.publications-link:hover
+{
+    color: white;
+}
