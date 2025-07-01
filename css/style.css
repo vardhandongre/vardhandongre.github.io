@@ -81,3 +81,19 @@ a
 {
     color: white;
 }
+
+.copyright
+{
+    margin-top: 3em;
+    text-align: center;
+    border-top: 1px solid #333;
+    padding-top: 1.5em;
+}
+
+.copyright p
+{
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8em;
+    color: #666;
+    margin: 0;
+}
