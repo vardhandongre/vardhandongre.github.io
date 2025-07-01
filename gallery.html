@@ -1,0 +1,139 @@
+<!-- Gallery page for artwork and photography -->
+
+<html>
+<head>
+    <title>Gallery - Vardhan Dongre</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/gallery.css">
+</head>
+
+<body>
+    <div class="content">
+        <nav class="navigation">
+            <a href="index.html">← Back to Home</a>
+        </nav>
+        
+        <h1>Gallery</h1>
+        <h2>Artwork & Photography</h2>
+        
+        <div class="gallery-container">
+            <!-- Example gallery items - you can replace these with your actual artwork -->
+            <div class="gallery-item">
+                <img src="imgs/gallery/artwork1.jpg" alt="Artwork 1" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Artwork Title 1</h3>
+                    <p>Description of the artwork or photography piece</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="imgs/gallery/photo1.jpg" alt="Photography 1" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Photography Title 1</h3>
+                    <p>Description of the photography piece</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="imgs/gallery/artwork2.jpg" alt="Artwork 2" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Artwork Title 2</h3>
+                    <p>Description of the artwork piece</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="imgs/gallery/photo2.jpg" alt="Photography 2" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Photography Title 2</h3>
+                    <p>Description of the photography piece</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="imgs/gallery/artwork3.jpg" alt="Artwork 3" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Artwork Title 3</h3>
+                    <p>Description of the artwork piece</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="imgs/gallery/photo3.jpg" alt="Photography 3" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Photography Title 3</h3>
+                    <p>Description of the photography piece</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="imgs/gallery/artwork4.jpg" alt="Artwork 4" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Artwork Title 4</h3>
+                    <p>Description of the artwork piece</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="imgs/gallery/photo4.jpg" alt="Photography 4" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Photography Title 4</h3>
+                    <p>Description of the photography piece</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="imgs/gallery/artwork5.jpg" alt="Artwork 5" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Artwork Title 5</h3>
+                    <p>Description of the artwork piece</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="imgs/gallery/photo5.jpg" alt="Photography 5" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Photography Title 5</h3>
+                    <p>Description of the photography piece</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="gallery-note">
+            <p>
+                This gallery showcases my creative work in photography and digital art. Each piece represents a moment of inspiration or exploration in visual expression.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Simple lightbox functionality
+        document.querySelectorAll('.gallery-item img').forEach(img => {
+            img.addEventListener('click', function() {
+                // Create lightbox overlay
+                const lightbox = document.createElement('div');
+                lightbox.className = 'lightbox';
+                lightbox.innerHTML = `
+                    <div class="lightbox-content">
+                        <img src="${this.src}" alt="${this.alt}">
+                        <div class="lightbox-info">
+                            <h3>${this.parentElement.querySelector('h3').textContent}</h3>
+                            <p>${this.parentElement.querySelector('p').textContent}</p>
+                        </div>
+                        <button class="lightbox-close">&times;</button>
+                    </div>
+                `;
+                
+                document.body.appendChild(lightbox);
+                
+                // Close lightbox
+                lightbox.addEventListener('click', function(e) {
+                    if (e.target === lightbox || e.target.className === 'lightbox-close') {
+                        document.body.removeChild(lightbox);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
