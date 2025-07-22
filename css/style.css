@@ -82,6 +82,20 @@ a
     color: white;
 }
 
+.blog-link
+{
+    font-family: 'DM Mono', monospace;
+    font-size: 1.1em;
+    color: #888;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.blog-link:hover
+{
+    color: white;
+}
+
 .copyright
 {
     margin-top: 3em;
