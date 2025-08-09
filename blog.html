@@ -20,6 +20,65 @@
             </li>
         </ul>
         <a href="index.html">&larr; Back to Home</a>
+        
+        <!-- Research Playground Section -->
+        <div class="playground-section">
+            <h2>Research Playground</h2>
+            <p class="playground-description">
+                Interactive visualizations for exploring key concepts in machine learning and AI. 
+                Solve puzzles to unlock beautiful mathematical visualizations.
+            </p>
+            <div id="playground" class="playground-container"></div>
+        </div>
     </div>
+    
+    <!-- Load KaTeX and Plotly for the playground -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+    
+    <script type="module">
+        // Wait for KaTeX to be fully loaded
+        function waitForKaTeX() {
+            return new Promise((resolve) => {
+                if (window.katex && window.katex.render) {
+                    resolve();
+                } else {
+                    const checkKaTeX = () => {
+                        if (window.katex && window.katex.render) {
+                            resolve();
+                        } else {
+                            setTimeout(checkKaTeX, 100);
+                        }
+                    };
+                    checkKaTeX();
+                }
+            });
+        }
+
+        async function initPlaygroundWhenReady() {
+            await waitForKaTeX();
+            console.log('KaTeX loaded, initializing playground...');
+
+            try {
+                const { initPlayground } = await import("./research-playground.js");
+                const el = document.getElementById("playground");
+                initPlayground(el, {
+                    theme: {
+                        // accent: "#7AE6FF", good: "#6BEFA3", bad: "#FF708D"
+                    }
+                });
+            } catch (error) {
+                console.error('Failed to initialize playground:', error);
+                document.getElementById("playground").innerHTML = `
+                    <div style="color: red; padding: 20px; text-align: center;">
+                        Failed to load playground: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        initPlaygroundWhenReady();
+    </script>
 </body>
 </html> 

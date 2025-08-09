@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Research Playground (MVP)</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+</head>
+<body>
+  <div class="content">
+    <h1>Research Playground</h1>
+    <p>Solve quick puzzles to unlock visualizations. This is an MVP.</p>
+
+    <div id="playground" style="max-width: 980px; margin: 24px auto;"></div>
+  </div>
+
+  <script type="module">
+    // Wait for KaTeX to be fully loaded
+    function waitForKaTeX() {
+      return new Promise((resolve) => {
+        if (window.katex && window.katex.render) {
+          resolve();
+        } else {
+          const checkKaTeX = () => {
+            if (window.katex && window.katex.render) {
+              resolve();
+            } else {
+              setTimeout(checkKaTeX, 100);
+            }
+          };
+          checkKaTeX();
+        }
+      });
+    }
+
+    async function initPlaygroundWhenReady() {
+      await waitForKaTeX();
+      console.log('KaTeX loaded, initializing playground...');
+      
+      try {
+        const { initPlayground } = await import("./research-playground.js");
+        const el = document.getElementById("playground");
+        initPlayground(el, {
+          theme: {
+            // accent: "#7AE6FF", good: "#6BEFA3", bad: "#FF708D"
+          }
+        });
+      } catch (error) {
+        console.error('Failed to initialize playground:', error);
+        document.getElementById("playground").innerHTML = `
+          <div style="color: red; padding: 20px; text-align: center;">
+            Failed to load playground: ${error.message}
+          </div>
+        `;
+      }
+    }
+
+    initPlaygroundWhenReady();
+  </script>
+</body>
+</html> 
