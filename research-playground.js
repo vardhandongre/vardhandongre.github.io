@@ -1,18 +1,33 @@
-// research-playground.js — Vanilla ES module (MVP + polish)
+// research-playground.js — Vanilla script (compatible with GitHub Pages)
 // - Typed LaTeX answers, streak + hints
 // - Visual accuracy tweaks, responsive equation sizing
 // - Puzzles: Bellman, Cross-Entropy, Swiss Roll, Scaled Dot-Product Attention, KL divergence (2D Gaussians)
 // External deps: Plotly.js (required), KaTeX (optional for pretty math)
 // Usage:
 //   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
-//   <script type="module">
-//     import { initPlayground } from './research-playground.js';
+//   <script src="./research-playground.js"></script>
+//   <script>
 //     initPlayground(document.getElementById('playground'));
 //   </script>
 //
-export function initPlayground(container, options = {}) {
+function initPlayground(container, options = {}) {
   if (!container) throw new Error("initPlayground: container is required");
   const theme = makeTheme(options.theme);
+
+  // Make instance globally accessible for debugging
+  window.currentPlaygroundInstance = {
+    showSwissRoll: () => {
+      console.log('Forcing Swiss roll visualization...');
+      // Navigate to Swiss roll puzzle (index 2)
+      idx = 2;
+      renderPuzzle();
+      // Auto-solve it
+      setTimeout(() => {
+        ansEl.value = 't sin t';
+        checkAnswer();
+      }, 500);
+    }
+  };
 
   // Root
   const root = document.createElement('div');
@@ -476,12 +491,24 @@ function createClassificationViz(vizArea, controls){
 // ————————————————————————————————————————————————
 // Visualization: Swiss Roll scatter3d
 function createSwissRollViz(vizArea, controls){
+  console.log('Creating Swiss Roll visualization...');
+  console.log('vizArea:', vizArea);
+  console.log('controls:', controls);
+  
   requirePlotly();
+  
+  if (!window.Plotly || typeof window.Plotly.newPlot !== 'function') {
+    console.error('Plotly not available for Swiss Roll!');
+    vizArea.innerHTML = '<div style="color: red; padding: 20px; text-align: center;">Error: Plotly.js not loaded. Please refresh the page.</div>';
+    return;
+  }
+  
   const turns = slider(controls, 'Turns', 1.5, 0.5, 4.0, 0.1);
   const noise = slider(controls, 'Noise', 0.05, 0.0, 0.3, 0.01);
   const nPts  = slider(controls, 'Samples', 1200, 200, 4000, 100, true);
 
   function genData(){
+    console.log('Generating Swiss Roll data...');
     const N = Math.floor(+nPts.value);
     const T = +turns.value * 2*Math.PI; // total angle span
     const pts = {x:[],y:[],z:[], c:[]};
@@ -494,9 +521,11 @@ function createSwissRollViz(vizArea, controls){
       pts.z.push( t*Math.sin(t) + eps*randn() );
       pts.c.push(t);
     }
+    console.log('Generated', N, 'points for Swiss Roll');
     return pts;
   }
   function render(){
+    console.log('Rendering Swiss Roll...');
     const d = genData();
     const trace = { type:'scatter3d', mode:'markers', x:d.x,y:d.y,z:d.z,
       marker:{ size:2, opacity:0.9, color:d.c, colorscale: darkPointScale(), showscale:false }
@@ -509,7 +538,15 @@ function createSwissRollViz(vizArea, controls){
         bgcolor:'rgba(0,0,0,0)'
       }, margin:{l:0,r:0,b:0,t:30}, title:{text:'Swiss Roll', font:{color:'var(--fg)', size:14}}
     };
-    Plotly.newPlot(vizArea, [trace], layout, {displayModeBar:false});
+    
+    try {
+      console.log('Calling Plotly.newPlot for Swiss Roll...');
+      Plotly.newPlot(vizArea, [trace], layout, {displayModeBar:false});
+      console.log('Swiss Roll rendered successfully!');
+    } catch (error) {
+      console.error('Error rendering Swiss Roll:', error);
+      vizArea.innerHTML = `<div style="color: red; padding: 20px; text-align: center;">Error rendering Swiss Roll: ${error.message}</div>`;
+    }
   }
   [turns, noise, nPts].forEach(inp=> inp.addEventListener('input', render));
   render();
@@ -654,6 +691,148 @@ function injectStylesOnce(){
   .rp-chip { display:flex; flex-direction:column; gap:4px; padding:8px 10px; background:rgba(10,16,22,0.8); border:1px solid rgba(122,230,255,0.2); border-radius:10px; min-width: 160px; backdrop-filter: blur(5px); }
   .rp-chip label { font-size:11px; opacity:0.8; }
   .rp-chip input[type=range] { width: 160px; }
+  
+  /* High-quality slider styles */
+  .rp-slider-chip { 
+    padding: 12px 16px; 
+    min-width: 200px; 
+    transition: all 0.3s ease;
+    border: 1px solid rgba(122,230,255,0.2);
+  }
+  
+  .rp-slider-chip:hover {
+    border-color: rgba(122,230,255,0.4);
+    box-shadow: 0 4px 20px rgba(122,230,255,0.1);
+    transform: translateY(-2px);
+  }
+  
+  .rp-slider-chip.rp-slider-focused {
+    border-color: #7AE6FF;
+    box-shadow: 0 0 0 3px rgba(122,230,255,0.2), 0 8px 25px rgba(122,230,255,0.15);
+  }
+  
+  .rp-slider-label {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: #E8F1F8 !important;
+    opacity: 0.9 !important;
+    margin-bottom: 8px !important;
+    letter-spacing: 0.5px;
+  }
+  
+  .rp-slider-container {
+    position: relative;
+    height: 24px;
+    margin: 8px 0;
+  }
+  
+  .rp-slider-track {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: rgba(122,230,255,0.15);
+    border-radius: 2px;
+    transform: translateY(-50%);
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
+  }
+  
+  .rp-slider-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: linear-gradient(90deg, #7AE6FF, #A990FF);
+    border-radius: 2px;
+    transition: width 0.1s ease;
+    box-shadow: 0 0 8px rgba(122,230,255,0.4);
+  }
+  
+  .rp-slider-thumb {
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, #7AE6FF, #5CC7D9);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3), 0 0 0 2px rgba(122,230,255,0.3);
+    border: 2px solid rgba(255,255,255,0.9);
+  }
+  
+  .rp-slider-thumb:hover {
+    transform: translate(-50%, -50%) scale(1.2);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4), 0 0 0 3px rgba(122,230,255,0.5);
+  }
+  
+  .rp-slider-thumb:active {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.5), 0 0 0 4px rgba(122,230,255,0.6);
+  }
+  
+  .rp-slider-input {
+    position: absolute !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  
+  /* Slider animations and effects */
+  .rp-slider-track::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      rgba(122,230,255,0.1) 0%, 
+      rgba(169,144,255,0.1) 50%, 
+      rgba(122,230,255,0.1) 100%);
+    border-radius: 2px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .rp-slider-chip:hover .rp-slider-track::before {
+    opacity: 1;
+  }
+  
+  /* Value display enhancement */
+  .rp-slider-label {
+    position: relative;
+  }
+  
+  .rp-slider-label::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #7AE6FF, #A990FF);
+    transition: width 0.3s ease;
+  }
+  
+  .rp-slider-chip:hover .rp-slider-label::after {
+    width: 100%;
+  }
+  
+  /* Focus ring animation */
+  @keyframes sliderFocusPulse {
+    0% { box-shadow: 0 0 0 0 rgba(122,230,255,0.4); }
+    70% { box-shadow: 0 0 0 6px rgba(122,230,255,0); }
+    100% { box-shadow: 0 0 0 0 rgba(122,230,255,0); }
+  }
+  
+  .rp-slider-chip.rp-slider-focused .rp-slider-thumb {
+    animation: sliderFocusPulse 1.5s infinite;
+  }
   .rp-play { padding:10px 14px; font-weight:700; background: linear-gradient(135deg, #6BEFA3, #4AA4A8) !important; box-shadow: 0 4px 15px rgba(107,239,163,0.3) !important; }
   .rp-play:hover { box-shadow: 0 8px 25px rgba(107,239,163,0.4) !important; }
   
@@ -766,11 +945,66 @@ function gauss2D(x,y, mx,my, sx,sy){ const nx=(x-mx)/sx, ny=(y-my)/sy; return Ma
 
 // UI helpers
 function slider(parent, labelText, value, min, max, step, integer=false){
-  const chip = document.createElement('div'); chip.className='rp-chip';
-  const label = document.createElement('label'); label.textContent = `${labelText}: ${value}`;
-  const input = document.createElement('input'); input.type='range'; input.min=min; input.max=max; input.step=step; input.value=value;
-  input.addEventListener('input', ()=>{ label.textContent = `${labelText}: ${integer? Math.floor(input.value): input.value}`; });
-  chip.appendChild(label); chip.appendChild(input); parent.appendChild(chip);
+  const chip = document.createElement('div'); 
+  chip.className='rp-chip rp-slider-chip';
+  
+  const label = document.createElement('label'); 
+  label.className = 'rp-slider-label';
+  label.textContent = `${labelText}: ${value}`;
+  
+  const input = document.createElement('input'); 
+  input.type='range'; 
+  input.min=min; 
+  input.max=max; 
+  input.step=step; 
+  input.value=value;
+  input.className = 'rp-slider-input';
+  
+  // Create a custom slider track and thumb
+  const sliderContainer = document.createElement('div');
+  sliderContainer.className = 'rp-slider-container';
+  
+  const track = document.createElement('div');
+  track.className = 'rp-slider-track';
+  
+  const fill = document.createElement('div');
+  fill.className = 'rp-slider-fill';
+  
+  const thumb = document.createElement('div');
+  thumb.className = 'rp-slider-thumb';
+  
+  track.appendChild(fill);
+  sliderContainer.appendChild(track);
+  sliderContainer.appendChild(thumb);
+  
+  // Update the fill and thumb position
+  function updateSlider() {
+    const percent = ((input.value - min) / (max - min)) * 100;
+    fill.style.width = percent + '%';
+    thumb.style.left = percent + '%';
+    label.textContent = `${labelText}: ${integer ? Math.floor(input.value) : parseFloat(input.value).toFixed(2)}`;
+  }
+  
+  // Initialize position
+  updateSlider();
+  
+  // Update on input
+  input.addEventListener('input', updateSlider);
+  
+  // Add visual feedback on focus
+  input.addEventListener('focus', () => {
+    chip.classList.add('rp-slider-focused');
+  });
+  
+  input.addEventListener('blur', () => {
+    chip.classList.remove('rp-slider-focused');
+  });
+  
+  chip.appendChild(label); 
+  chip.appendChild(sliderContainer);
+  chip.appendChild(input); // Hidden but functional
+  parent.appendChild(chip);
+  
   return input;
 }
 

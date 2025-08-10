@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swiss Roll Test - GitHub Pages Debug</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0B0F14;
+            color: #E8F1F8;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(15,20,26,0.8);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(122,230,255,0.2);
+        }
+        h1 {
+            color: #7AE6FF;
+            text-align: center;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(122,230,255,0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(122,230,255,0.3);
+        }
+        button {
+            background: #6BEFA3;
+            color: #051018;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5CC7D9;
+        }
+        .error {
+            color: #FF708D;
+            background: rgba(255,112,141,0.1);
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .success {
+            color: #6BEFA3;
+            background: rgba(107,239,163,0.1);
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        #plotly-test, #canvas-test {
+            margin: 20px 0;
+            text-align: center;
+        }
+        canvas {
+            border: 1px solid rgba(122,230,255,0.3);
+            border-radius: 8px;
+            background: rgba(10,16,22,0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Swiss Roll Test - GitHub Pages Debug</h1>
+        
+        <div class="test-section">
+            <h3>Dependency Check</h3>
+            <div id="dependencies"></div>
+            <button onclick="checkDependencies()">Check Dependencies</button>
+        </div>
+        
+        <div class="test-section">
+            <h3>Plotly 3D Test</h3>
+            <div id="plotly-test">
+                <p>Click the button below to test Plotly 3D visualization</p>
+                <button onclick="testPlotly3D()">Test Plotly 3D</button>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>Canvas 2D Fallback</h3>
+            <div id="canvas-test">
+                <p>Click the button below to test Canvas 2D visualization</p>
+                <button onclick="testCanvas2D()">Test Canvas 2D</button>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>Console Log</h3>
+            <div id="console-log" style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; font-family: monospace; font-size: 12px; max-height: 200px; overflow-y: auto;"></div>
+            <button onclick="clearLog()">Clear Log</button>
+        </div>
+    </div>
+
+    <!-- Load Plotly -->
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+    
+    <script>
+        // Console logging helper
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('console-log');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.style.color = type === 'error' ? '#FF708D' : type === 'success' ? '#6BEFA3' : '#E8F1F8';
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            logDiv.appendChild(logEntry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(message);
+        }
+
+        function clearLog() {
+            document.getElementById('console-log').innerHTML = '';
+        }
+
+        // Check dependencies
+        function checkDependencies() {
+            const depsDiv = document.getElementById('dependencies');
+            depsDiv.innerHTML = '';
+            
+            const dependencies = [
+                { name: 'Plotly.js', available: !!window.Plotly, required: true },
+                { name: 'Canvas API', available: !!document.createElement('canvas').getContext, required: true },
+                { name: 'ES6 Support', available: typeof Promise !== 'undefined', required: true }
+            ];
+            
+            let allGood = true;
+            dependencies.forEach(dep => {
+                const status = dep.available ? '✅ Available' : '❌ Missing';
+                const color = dep.available ? '#6BEFA3' : '#FF708D';
+                const div = document.createElement('div');
+                div.innerHTML = `<strong>${dep.name}:</strong> <span style="color: ${color}">${status}</span>`;
+                depsDiv.appendChild(div);
+                
+                if (!dep.available && dep.required) {
+                    allGood = false;
+                }
+            });
+            
+            if (allGood) {
+                log('All dependencies are available', 'success');
+            } else {
+                log('Some dependencies are missing', 'error');
+            }
+        }
+
+        // Test Plotly 3D
+        function testPlotly3D() {
+            log('Testing Plotly 3D visualization...');
+            
+            if (!window.Plotly) {
+                log('Plotly not available', 'error');
+                document.getElementById('plotly-test').innerHTML = '<div class="error">❌ Plotly.js not loaded</div>';
+                return;
+            }
+            
+            try {
+                // Generate Swiss roll data
+                const N = 500;
+                const T = 3 * Math.PI;
+                const pts = {x: [], y: [], z: [], c: []};
+                
+                for (let i = 0; i < N; i++) {
+                    const t = Math.random() * T + 1.5;
+                    const y = (Math.random() - 0.5) * 10;
+                    const eps = 0.05;
+                    
+                    pts.x.push(t * Math.cos(t) + eps * (Math.random() - 0.5));
+                    pts.y.push(y + eps * (Math.random() - 0.5));
+                    pts.z.push(t * Math.sin(t) + eps * (Math.random() - 0.5));
+                    pts.c.push(t);
+                }
+                
+                const trace = {
+                    type: 'scatter3d',
+                    mode: 'markers',
+                    x: pts.x,
+                    y: pts.y,
+                    z: pts.z,
+                    marker: {
+                        size: 3,
+                        opacity: 0.8,
+                        color: pts.c,
+                        colorscale: [[0, '#1a1e27'], [0.5, '#4aa4a8'], [1, '#f2c6ff']],
+                        showscale: false
+                    }
+                };
+                
+                const layout = {
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    scene: {
+                        xaxis: {showgrid: true, gridcolor: 'rgba(255,255,255,0.1)', color: 'rgba(232,241,248,0.8)', zeroline: false},
+                        yaxis: {showgrid: true, gridcolor: 'rgba(255,255,255,0.1)', color: 'rgba(232,241,248,0.8)', zeroline: false},
+                        zaxis: {showgrid: true, gridcolor: 'rgba(255,255,255,0.1)', color: 'rgba(232,241,248,0.8)', zeroline: false},
+                        bgcolor: 'rgba(0,0,0,0)'
+                    },
+                    margin: {l: 0, r: 0, b: 0, t: 30},
+                    title: {text: 'Swiss Roll 3D (Plotly)', font: {color: '#E8F1F8', size: 16}}
+                };
+                
+                Plotly.newPlot('plotly-test', [trace], layout, {displayModeBar: false});
+                log('Plotly 3D visualization created successfully', 'success');
+                
+            } catch (error) {
+                log(`Error creating Plotly visualization: ${error.message}`, 'error');
+                document.getElementById('plotly-test').innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+            }
+        }
+
+        // Test Canvas 2D
+        function testCanvas2D() {
+            log('Testing Canvas 2D visualization...');
+            
+            const canvas = document.createElement('canvas');
+            canvas.width = 600;
+            canvas.height = 400;
+            
+            const ctx = canvas.getContext('2d');
+            if (!ctx) {
+                log('Canvas 2D not available', 'error');
+                document.getElementById('canvas-test').innerHTML = '<div class="error">❌ Canvas 2D not supported</div>';
+                return;
+            }
+            
+            try {
+                // Draw Swiss roll as a spiral
+                ctx.strokeStyle = '#7AE6FF';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+                const scale = 15;
+                
+                for (let t = 0; t < 4 * Math.PI; t += 0.1) {
+                    const x = centerX + scale * t * Math.cos(t);
+                    const y = centerY + scale * t * Math.sin(t);
+                    
+                    if (t === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                }
+                
+                ctx.stroke();
+                
+                // Add sample points
+                ctx.fillStyle = '#6BEFA3';
+                for (let i = 0; i < 50; i++) {
+                    const t = Math.random() * 4 * Math.PI;
+                    const x = centerX + scale * t * Math.cos(t) + (Math.random() - 0.5) * 20;
+                    const y = centerY + scale * t * Math.sin(t) + (Math.random() - 0.5) * 20;
+                    
+                    ctx.beginPath();
+                    ctx.arc(x, y, 3, 0, 2 * Math.PI);
+                    ctx.fill();
+                }
+                
+                // Add title
+                ctx.fillStyle = '#E8F1F8';
+                ctx.font = '16px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('Swiss Roll 2D (Canvas)', centerX, 30);
+                
+                document.getElementById('canvas-test').innerHTML = '';
+                document.getElementById('canvas-test').appendChild(canvas);
+                log('Canvas 2D visualization created successfully', 'success');
+                
+            } catch (error) {
+                log(`Error creating Canvas visualization: ${error.message}`, 'error');
+                document.getElementById('canvas-test').innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+            }
+        }
+
+        // Auto-check dependencies on load
+        window.addEventListener('load', () => {
+            log('Page loaded, checking dependencies...');
+            setTimeout(checkDependencies, 500);
+        });
+    </script>
+</body>
+</html> 

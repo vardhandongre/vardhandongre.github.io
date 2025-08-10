@@ -234,6 +234,99 @@ a
     accent-color: #7AE6FF !important;
 }
 
+/* Enhanced slider styles for Research Playground */
+.rp-slider-chip { 
+    padding: 12px 16px !important; 
+    min-width: 200px !important; 
+    transition: all 0.3s ease !important;
+    border: 1px solid rgba(122,230,255,0.2) !important;
+    background: rgba(10, 16, 22, 0.9) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.rp-slider-chip:hover {
+    border-color: rgba(122,230,255,0.4) !important;
+    box-shadow: 0 4px 20px rgba(122,230,255,0.1) !important;
+    transform: translateY(-2px) !important;
+}
+
+.rp-slider-chip.rp-slider-focused {
+    border-color: #7AE6FF !important;
+    box-shadow: 0 0 0 3px rgba(122,230,255,0.2), 0 8px 25px rgba(122,230,255,0.15) !important;
+}
+
+.rp-slider-label {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: #E8F1F8 !important;
+    opacity: 0.9 !important;
+    margin-bottom: 8px !important;
+    letter-spacing: 0.5px !important;
+    font-family: 'Ubuntu', sans-serif !important;
+}
+
+.rp-slider-container {
+    position: relative !important;
+    height: 24px !important;
+    margin: 8px 0 !important;
+}
+
+.rp-slider-track {
+    position: absolute !important;
+    top: 50% !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 4px !important;
+    background: rgba(122,230,255,0.15) !important;
+    border-radius: 2px !important;
+    transform: translateY(-50%) !important;
+    overflow: hidden !important;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.3) !important;
+}
+
+.rp-slider-fill {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, #7AE6FF, #A990FF) !important;
+    border-radius: 2px !important;
+    transition: width 0.1s ease !important;
+    box-shadow: 0 0 8px rgba(122,230,255,0.4) !important;
+}
+
+.rp-slider-thumb {
+    position: absolute !important;
+    top: 50% !important;
+    width: 20px !important;
+    height: 20px !important;
+    background: linear-gradient(135deg, #7AE6FF, #5CC7D9) !important;
+    border-radius: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3), 0 0 0 2px rgba(122,230,255,0.3) !important;
+    border: 2px solid rgba(255,255,255,0.9) !important;
+}
+
+.rp-slider-thumb:hover {
+    transform: translate(-50%, -50%) scale(1.2) !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4), 0 0 0 3px rgba(122,230,255,0.5) !important;
+}
+
+.rp-slider-thumb:active {
+    transform: translate(-50%, -50%) scale(1.1) !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.5), 0 0 0 4px rgba(122,230,255,0.6) !important;
+}
+
+.rp-slider-input {
+    position: absolute !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
 .rp-play {
     background: linear-gradient(135deg, #6BEFA3, #4AA4A8) !important;
     box-shadow: 0 4px 15px rgba(107, 239, 163, 0.3) !important;

@@ -28,6 +28,19 @@
                 Interactive visualizations for exploring key concepts in machine learning and AI. 
                 Solve puzzles to unlock beautiful mathematical visualizations.
             </p>
+            
+            <!-- Debug section for testing -->
+            <div style="margin-bottom: 20px; padding: 15px; background: rgba(122,230,255,0.1); border-radius: 10px; border: 1px solid rgba(122,230,255,0.3);">
+                <h3 style="margin-top: 0; color: #7AE6FF;">Quick Test</h3>
+                <p style="margin: 10px 0; font-size: 14px;">To see the Swiss Roll visualization:</p>
+                <ol style="margin: 10px 0; padding-left: 20px; font-size: 14px;">
+                    <li>Click "Next" twice to go to puzzle 3 (Swiss Roll)</li>
+                    <li>Type "t sin t" in the input field</li>
+                    <li>Click "Check" to unlock the visualization</li>
+                </ol>
+                <button id="test-swiss-roll" style="background: #6BEFA3; color: #051018; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600;">Test Swiss Roll Directly</button>
+            </div>
+            
             <div id="playground" class="playground-container"></div>
         </div>
     </div>
@@ -37,7 +50,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
     
-    <script type="module">
+    <script>
         // Wait for KaTeX to be fully loaded
         function waitForKaTeX() {
             return new Promise((resolve) => {
@@ -61,13 +74,60 @@
             console.log('KaTeX loaded, initializing playground...');
 
             try {
-                const { initPlayground } = await import("./research-playground.js");
-                const el = document.getElementById("playground");
-                initPlayground(el, {
-                    theme: {
-                        // accent: "#7AE6FF", good: "#6BEFA3", bad: "#FF708D"
+                // Load the playground script directly
+                const script = document.createElement('script');
+                // Use absolute path for GitHub Pages compatibility
+                script.src = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/') + 'research-playground.js';
+                console.log('Loading playground script from:', script.src);
+                
+                script.onload = function() {
+                    console.log('Playground script loaded successfully');
+                    if (window.initPlayground) {
+                        const el = document.getElementById("playground");
+                        window.initPlayground(el, {
+                            theme: {
+                                // accent: "#7AE6FF", good: "#6BEFA3", bad: "#FF708D"
+                            }
+                        });
+                    } else {
+                        console.error('initPlayground function not found');
+                        document.getElementById("playground").innerHTML = `
+                            <div style="color: red; padding: 20px; text-align: center;">
+                                Failed to load playground: initPlayground function not found
+                            </div>
+                        `;
                     }
-                });
+                };
+                script.onerror = function() {
+                    console.error('Failed to load research-playground.js from:', script.src);
+                    // Try relative path as fallback
+                    const fallbackScript = document.createElement('script');
+                    fallbackScript.src = './research-playground.js';
+                    fallbackScript.onload = function() {
+                        console.log('Playground script loaded via fallback path');
+                        if (window.initPlayground) {
+                            const el = document.getElementById("playground");
+                            window.initPlayground(el, {
+                                theme: {
+                                    // accent: "#7AE6FF", good: "#6BEFA3", bad: "#FF708D"
+                                }
+                            });
+                        }
+                    };
+                    fallbackScript.onerror = function() {
+                        console.error('Both script loading attempts failed');
+                        document.getElementById("playground").innerHTML = `
+                            <div style="color: red; padding: 20px; text-align: center;">
+                                Failed to load playground script. This may be a GitHub Pages deployment issue.
+                                <br><br>
+                                <button onclick="location.reload()" style="background: #7AE6FF; color: #051018; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">Refresh Page</button>
+                            </div>
+                        `;
+                    };
+                    document.head.appendChild(fallbackScript);
+                };
+                document.head.appendChild(script);
+                
             } catch (error) {
                 console.error('Failed to initialize playground:', error);
                 document.getElementById("playground").innerHTML = `
@@ -79,6 +139,215 @@
         }
 
         initPlaygroundWhenReady();
+        
+        // Immediate Swiss roll test for debugging
+        setTimeout(() => {
+            console.log('Running immediate Swiss roll test...');
+            const playground = document.getElementById('playground');
+            if (playground && !playground.querySelector('.rp-root')) {
+                console.log('Playground not loaded yet, creating direct Swiss roll...');
+                createSimpleSwissRoll(playground);
+            }
+        }, 3000);
+        
+        // Add test button functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const testBtn = document.getElementById('test-swiss-roll');
+            if (testBtn) {
+                testBtn.addEventListener('click', function() {
+                    // Wait for playground to be initialized
+                    setTimeout(() => {
+                        const playground = document.getElementById('playground');
+                        if (playground && playground.querySelector('.rp-root')) {
+                            // Find the playground instance and force show Swiss roll
+                            const playgroundRoot = playground.querySelector('.rp-root');
+                            if (window.currentPlaygroundInstance) {
+                                // If we have access to the instance, use it
+                                window.currentPlaygroundInstance.showSwissRoll();
+                            } else {
+                                // Fallback: create a simple Swiss roll visualization
+                                createSimpleSwissRoll(playground.querySelector('.rp-viz-area'));
+                            }
+                        } else {
+                            // If playground isn't loaded, create a direct Swiss roll
+                            createSimpleSwissRoll(document.getElementById('playground'));
+                        }
+                    }, 1000);
+                });
+            }
+        });
+        
+        // Enhanced error handling for GitHub Pages
+        function checkDependencies() {
+            const issues = [];
+            
+            if (!window.Plotly) {
+                issues.push('Plotly.js not loaded');
+            }
+            
+            if (!window.katex) {
+                issues.push('KaTeX not loaded');
+            }
+            
+            if (issues.length > 0) {
+                console.warn('Dependency issues detected:', issues);
+                const playground = document.getElementById('playground');
+                if (playground) {
+                    playground.innerHTML = `
+                        <div style="padding: 20px; text-align: center; color: #FFB86B;">
+                            <h3>⚠️ Dependencies Loading...</h3>
+                            <p>Some required libraries are still loading. Please wait a moment and refresh the page if issues persist.</p>
+                            <p><strong>Issues:</strong> ${issues.join(', ')}</p>
+                            <button onclick="location.reload()" style="background: #7AE6FF; color: #051018; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; margin-top: 10px;">Refresh Page</button>
+                        </div>
+                    `;
+                }
+                return false;
+            }
+            
+            return true;
+        }
+        
+        // Check dependencies periodically
+        setInterval(checkDependencies, 2000);
+        
+        // Simple Swiss roll visualization fallback
+        function createSimpleSwissRoll(vizArea) {
+            if (!vizArea) return;
+            
+            // Check if Plotly is available
+            if (!window.Plotly || typeof window.Plotly.newPlot !== 'function') {
+                // Create a simple HTML-based visualization as fallback
+                createHTMLSwissRoll(vizArea);
+                return;
+            }
+            
+            try {
+                // Generate Swiss roll data
+                const N = 1200;
+                const T = 3 * Math.PI; // 1.5 turns
+                const pts = {x: [], y: [], z: [], c: []};
+                
+                for (let i = 0; i < N; i++) {
+                    const t = Math.random() * T + 1.5; // avoid near-zero
+                    const y = (Math.random() - 0.5) * 10;
+                    const eps = 0.05; // noise
+                    
+                    pts.x.push(t * Math.cos(t) + eps * (Math.random() - 0.5));
+                    pts.y.push(y + eps * (Math.random() - 0.5));
+                    pts.z.push(t * Math.sin(t) + eps * (Math.random() - 0.5));
+                    pts.c.push(t);
+                }
+                
+                const trace = {
+                    type: 'scatter3d',
+                    mode: 'markers',
+                    x: pts.x,
+                    y: pts.y,
+                    z: pts.z,
+                    marker: {
+                        size: 2,
+                        opacity: 0.9,
+                        color: pts.c,
+                        colorscale: [[0, '#1a1e27'], [0.2, '#2a3848'], [0.4, '#2d6a73'], [0.6, '#4aa4a8'], [0.8, '#8fd9e2'], [1, '#f2c6ff']],
+                        showscale: false
+                    }
+                };
+                
+                const layout = {
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    scene: {
+                        xaxis: {showgrid: true, gridcolor: 'rgba(255,255,255,0.06)', color: 'rgba(232,241,248,0.75)', zeroline: false},
+                        yaxis: {showgrid: true, gridcolor: 'rgba(255,255,255,0.06)', color: 'rgba(232,241,248,0.75)', zeroline: false},
+                        zaxis: {showgrid: true, gridcolor: 'rgba(255,255,255,0.06)', color: 'rgba(232,241,248,0.75)', zeroline: false},
+                        bgcolor: 'rgba(0,0,0,0)'
+                    },
+                    margin: {l: 0, r: 0, b: 0, t: 30},
+                    title: {text: 'Swiss Roll (Test Mode)', font: {color: '#E8F1F8', size: 14}}
+                };
+                
+                Plotly.newPlot(vizArea, [trace], layout, {displayModeBar: false});
+                
+                // Hide the locked message
+                const lockedEl = vizArea.parentNode.querySelector('.rp-viz-locked');
+                if (lockedEl) {
+                    lockedEl.style.display = 'none';
+                }
+                
+            } catch (error) {
+                console.error('Error creating Swiss roll:', error);
+                createHTMLSwissRoll(vizArea);
+            }
+        }
+        
+        // HTML-based Swiss roll visualization (no external dependencies)
+        function createHTMLSwissRoll(vizArea) {
+            console.log('Creating HTML-based Swiss roll visualization...');
+            
+            // Generate a simplified 2D representation
+            const canvas = document.createElement('canvas');
+            canvas.width = 600;
+            canvas.height = 400;
+            canvas.style.border = '1px solid rgba(122,230,255,0.3)';
+            canvas.style.borderRadius = '8px';
+            canvas.style.background = 'rgba(10,16,22,0.8)';
+            
+            const ctx = canvas.getContext('2d');
+            
+            // Draw Swiss roll as a spiral
+            ctx.strokeStyle = '#7AE6FF';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const scale = 15;
+            
+            for (let t = 0; t < 4 * Math.PI; t += 0.1) {
+                const x = centerX + scale * t * Math.cos(t);
+                const y = centerY + scale * t * Math.sin(t);
+                
+                if (t === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            
+            ctx.stroke();
+            
+            // Add some sample points
+            ctx.fillStyle = '#6BEFA3';
+            for (let i = 0; i < 50; i++) {
+                const t = Math.random() * 4 * Math.PI;
+                const x = centerX + scale * t * Math.cos(t) + (Math.random() - 0.5) * 20;
+                const y = centerY + scale * t * Math.sin(t) + (Math.random() - 0.5) * 20;
+                
+                ctx.beginPath();
+                ctx.arc(x, y, 3, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+            
+            // Add title
+            ctx.fillStyle = '#E8F1F8';
+            ctx.font = '16px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Swiss Roll (2D Representation)', centerX, 30);
+            
+            // Add explanation
+            ctx.font = '12px Arial';
+            ctx.fillStyle = 'rgba(232,241,248,0.7)';
+            ctx.fillText('This is a simplified 2D view of the 3D Swiss Roll manifold', centerX, canvas.height - 20);
+            
+            vizArea.innerHTML = '';
+            vizArea.appendChild(canvas);
+            
+            // Hide the locked message if it exists
+            const lockedEl = vizArea.parentNode.querySelector('.rp-viz-locked');
+            if (lockedEl) {
+                lockedEl.style.display = 'none';
+            }
+        }
     </script>
 </body>
 </html> 
