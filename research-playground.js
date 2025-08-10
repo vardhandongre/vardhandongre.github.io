@@ -847,8 +847,8 @@ function injectStylesOnce(){
   .rp-slider-chip.rp-slider-focused .rp-slider-thumb {
     animation: sliderFocusPulse 1.5s infinite;
   }
-  .rp-play { padding:10px 14px; font-weight:700; background: linear-gradient(135deg, #6BEFA3, #4AA4A8) !important; box-shadow: 0 4px 15px rgba(107,239,163,0.3) !important; }
-  .rp-play:hover { box-shadow: 0 8px 25px rgba(107,239,163,0.4) !important; }
+  .rp-play { padding:10px 14px; font-weight:700; background: linear-gradient(135deg, #7AE6FF, #5CC7D9) !important; box-shadow: 0 4px 15px rgba(122,230,255,0.3) !important; }
+.rp-play:hover { transform: translateY(-3px) !important; box-shadow: 0 8px 25px rgba(122,230,255,0.4) !important; }
   
   .rp-loading { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; color: var(--accent); }
   .rp-loading-spinner { width: 40px; height: 40px; border: 3px solid rgba(122,230,255,0.2); border-top: 3px solid var(--accent); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 16px; }
