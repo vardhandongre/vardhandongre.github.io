@@ -230,9 +230,7 @@ a
     backdrop-filter: blur(5px) !important;
 }
 
-.rp-chip input[type=range] {
-    accent-color: #7AE6FF !important;
-}
+
 
 /* Enhanced slider styles for Research Playground */
 .rp-slider-chip { 
@@ -274,6 +272,8 @@ a
     outline: none !important;
     cursor: pointer !important;
     margin: 8px 0 !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
 }
 
 /* Style the range input track */
@@ -297,6 +297,7 @@ a
 
 /* Style the range input thumb */
 .rp-slider-input::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
     appearance: none !important;
     width: 20px !important;
     height: 20px !important;
@@ -306,6 +307,7 @@ a
     border: 2px solid rgba(255,255,255,0.9) !important;
     box-shadow: 0 2px 8px rgba(0,0,0,0.3), 0 0 0 2px rgba(136,136,136,0.3) !important;
     transition: all 0.2s ease !important;
+    margin-top: -8px !important;
 }
 
 .rp-slider-input::-moz-range-thumb {

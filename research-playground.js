@@ -244,10 +244,10 @@ function initPlayground(container, options = {}) {
     if (good) {
       fbEl.style.animation = 'celebration 0.6s ease';
       
-      // Add confetti effect for major achievements
-      if (streak >= 3) {
-        createConfetti();
-      }
+      // Add confetti effect for major achievements (disabled)
+      // if (streak >= 3) {
+      //   createConfetti();
+      // }
     }
   }
 
@@ -727,6 +727,8 @@ function injectStylesOnce(){
     outline: none !important;
     cursor: pointer !important;
     margin: 8px 0 !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
   }
   
   /* Style the range input track */
@@ -750,6 +752,7 @@ function injectStylesOnce(){
   
   /* Style the range input thumb */
   .rp-slider-input::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
     appearance: none !important;
     width: 20px !important;
     height: 20px !important;
@@ -759,6 +762,7 @@ function injectStylesOnce(){
     border: 2px solid rgba(255,255,255,0.9) !important;
     box-shadow: 0 2px 8px rgba(0,0,0,0.3), 0 0 0 2px rgba(136,136,136,0.3) !important;
     transition: all 0.2s ease !important;
+    margin-top: -8px !important;
   }
   
   .rp-slider-input::-moz-range-thumb {
