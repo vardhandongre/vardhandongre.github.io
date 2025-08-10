@@ -720,66 +720,76 @@ function injectStylesOnce(){
     letter-spacing: 0.5px;
   }
   
-  .rp-slider-container {
-    position: relative;
-    height: 24px;
-    margin: 8px 0;
-  }
-  
-  .rp-slider-track {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: rgba(122,230,255,0.15);
-    border-radius: 2px;
-    transform: translateY(-50%);
-    overflow: hidden;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
-  }
-  
-  .rp-slider-fill {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    background: linear-gradient(90deg, #7AE6FF, #A990FF);
-    border-radius: 2px;
-    transition: width 0.1s ease;
-    box-shadow: 0 0 8px rgba(122,230,255,0.4);
-  }
-  
-  .rp-slider-thumb {
-    position: absolute;
-    top: 50%;
-    width: 20px;
-    height: 20px;
-    background: linear-gradient(135deg, #7AE6FF, #5CC7D9);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3), 0 0 0 2px rgba(122,230,255,0.3);
-    border: 2px solid rgba(255,255,255,0.9);
-  }
-  
-  .rp-slider-thumb:hover {
-    transform: translate(-50%, -50%) scale(1.2);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.4), 0 0 0 3px rgba(122,230,255,0.5);
-  }
-  
-  .rp-slider-thumb:active {
-    transform: translate(-50%, -50%) scale(1.1);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.5), 0 0 0 4px rgba(122,230,255,0.6);
-  }
-  
   .rp-slider-input {
-    position: absolute !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
     width: 100% !important;
-    height: 100% !important;
+    height: 24px !important;
+    background: transparent !important;
+    outline: none !important;
+    cursor: pointer !important;
+    margin: 8px 0 !important;
+  }
+  
+  /* Style the range input track */
+  .rp-slider-input::-webkit-slider-runnable-track {
+    width: 100% !important;
+    height: 4px !important;
+    background: rgba(122,230,255,0.15) !important;
+    border-radius: 2px !important;
+    border: none !important;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.3) !important;
+  }
+  
+  .rp-slider-input::-moz-range-track {
+    width: 100% !important;
+    height: 4px !important;
+    background: rgba(122,230,255,0.15) !important;
+    border-radius: 2px !important;
+    border: none !important;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.3) !important;
+  }
+  
+  /* Style the range input thumb */
+  .rp-slider-input::-webkit-slider-thumb {
+    appearance: none !important;
+    width: 20px !important;
+    height: 20px !important;
+    background: linear-gradient(135deg, #888, #CCC) !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+    border: 2px solid rgba(255,255,255,0.9) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3), 0 0 0 2px rgba(136,136,136,0.3) !important;
+    transition: all 0.2s ease !important;
+  }
+  
+  .rp-slider-input::-moz-range-thumb {
+    width: 20px !important;
+    height: 20px !important;
+    background: linear-gradient(135deg, #888, #CCC) !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+    border: 2px solid rgba(255,255,255,0.9) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3), 0 0 0 2px rgba(136,136,136,0.3) !important;
+    transition: all 0.2s ease !important;
+  }
+  
+  /* Hover effects for the thumb */
+  .rp-slider-input::-webkit-slider-thumb:hover {
+    transform: scale(1.2) !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4), 0 0 0 3px rgba(136,136,136,0.5) !important;
+  }
+  
+  .rp-slider-input::-moz-range-thumb:hover {
+    transform: scale(1.2) !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4), 0 0 0 3px rgba(136,136,136,0.5) !important;
+  }
+  
+  /* Active/focus effects */
+  .rp-slider-input:focus::-webkit-slider-thumb {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.5), 0 0 0 4px rgba(136,136,136,0.5) !important;
+  }
+  
+  .rp-slider-input:focus::-moz-range-thumb {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.5), 0 0 0 4px rgba(136,136,136,0.5) !important;
   }
   
   /* Slider animations and effects */
@@ -960,36 +970,10 @@ function slider(parent, labelText, value, min, max, step, integer=false){
   input.value=value;
   input.className = 'rp-slider-input';
   
-  // Create a custom slider track and thumb
-  const sliderContainer = document.createElement('div');
-  sliderContainer.className = 'rp-slider-container';
-  
-  const track = document.createElement('div');
-  track.className = 'rp-slider-track';
-  
-  const fill = document.createElement('div');
-  fill.className = 'rp-slider-fill';
-  
-  const thumb = document.createElement('div');
-  thumb.className = 'rp-slider-thumb';
-  
-  track.appendChild(fill);
-  sliderContainer.appendChild(track);
-  sliderContainer.appendChild(thumb);
-  
-  // Update the fill and thumb position
-  function updateSlider() {
-    const percent = ((input.value - min) / (max - min)) * 100;
-    fill.style.width = percent + '%';
-    thumb.style.left = percent + '%';
+  // Update label on input
+  input.addEventListener('input', () => {
     label.textContent = `${labelText}: ${integer ? Math.floor(input.value) : parseFloat(input.value).toFixed(2)}`;
-  }
-  
-  // Initialize position
-  updateSlider();
-  
-  // Update on input
-  input.addEventListener('input', updateSlider);
+  });
   
   // Add visual feedback on focus
   input.addEventListener('focus', () => {
@@ -1001,8 +985,7 @@ function slider(parent, labelText, value, min, max, step, integer=false){
   });
   
   chip.appendChild(label); 
-  chip.appendChild(sliderContainer);
-  chip.appendChild(input); // Hidden but functional
+  chip.appendChild(input);
   parent.appendChild(chip);
   
   return input;
