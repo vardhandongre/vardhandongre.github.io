@@ -20,10 +20,12 @@
             </li>
         </ul>
         
+        <!-- Research playground disabled -->
+        <!-- 
         <div class="playground-section">
-            
             <div id="playground" class="playground-container"></div>
         </div>
+        -->
 
         <div class="back-button">
             <a href="index.html" class="back-link">&larr; Back to Home</a>
@@ -34,101 +36,16 @@
         </div>
     </div>
     
-    <!-- Load KaTeX and Plotly for the playground -->
+    <!-- Research playground disabled - KaTeX and Plotly scripts removed -->
+    <!-- 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
     
     <script>
-        // Wait for KaTeX to be fully loaded
-        function waitForKaTeX() {
-            return new Promise((resolve) => {
-                if (window.katex && window.katex.render) {
-                    resolve();
-                } else {
-                    const checkKaTeX = () => {
-                        if (window.katex && window.katex.render) {
-                            resolve();
-                        } else {
-                            setTimeout(checkKaTeX, 100);
-                        }
-                    };
-                    checkKaTeX();
-                }
-            });
-        }
-
-        async function initPlaygroundWhenReady() {
-            await waitForKaTeX();
-            console.log('KaTeX loaded, initializing playground...');
-
-            try {
-                // Load the playground script directly
-                const script = document.createElement('script');
-                // Use absolute path for GitHub Pages compatibility
-                script.src = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/') + 'research-playground.js';
-                console.log('Loading playground script from:', script.src);
-                
-                script.onload = function() {
-                    console.log('Playground script loaded successfully');
-                    if (window.initPlayground) {
-                        const el = document.getElementById("playground");
-                        window.initPlayground(el, {
-                            theme: {
-                                // accent: "#7AE6FF", good: "#6BEFA3", bad: "#FF708D"
-                            }
-                        });
-                    } else {
-                        console.error('initPlayground function not found');
-                        document.getElementById("playground").innerHTML = `
-                            <div style="color: red; padding: 20px; text-align: center;">
-                                Failed to load playground: initPlayground function not found
-                            </div>
-                        `;
-                    }
-                };
-                script.onerror = function() {
-                    console.error('Failed to load research-playground.js from:', script.src);
-                    // Try relative path as fallback
-                    const fallbackScript = document.createElement('script');
-                    fallbackScript.src = './research-playground.js';
-                    fallbackScript.onload = function() {
-                        console.log('Playground script loaded via fallback path');
-                        if (window.initPlayground) {
-                            const el = document.getElementById("playground");
-                            window.initPlayground(el, {
-                                theme: {
-                                    // accent: "#7AE6FF", good: "#6BEFA3", bad: "#FF708D"
-                                }
-                            });
-                        }
-                    };
-                    fallbackScript.onerror = function() {
-                        console.error('Both script loading attempts failed');
-                        document.getElementById("playground").innerHTML = `
-                            <div style="color: red; padding: 20px; text-align: center;">
-                                Failed to load playground script. This may be a GitHub Pages deployment issue.
-                                <br><br>
-                                <button onclick="location.reload()" style="background: #7AE6FF; color: #051018; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">Refresh Page</button>
-                            </div>
-                        `;
-                    };
-                    document.head.appendChild(fallbackScript);
-                };
-                document.head.appendChild(script);
-                
-            } catch (error) {
-                console.error('Failed to initialize playground:', error);
-                document.getElementById("playground").innerHTML = `
-                    <div style="color: red; padding: 20px; text-align: center;">
-                        Failed to load playground: ${error.message}
-                    </div>
-                `;
-            }
-        }
-
-        initPlaygroundWhenReady();
+        // Playground initialization code removed
     </script>
+    -->
     
 </body>
 </html> 
