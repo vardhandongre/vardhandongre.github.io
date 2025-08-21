@@ -19,8 +19,14 @@ body
 
 .profile-pic
 {
-    height: 25%;
+    width: 200px;
+    height: 200px;
+    max-width: 200px;
+    max-height: 200px;
     border-radius: 3em;
+    display: block;
+    margin: 0 auto 1.5em auto;
+    object-fit: cover;
 }
 
 h1
@@ -453,11 +459,14 @@ a
     }
     
     .profile-pic {
-        height: 20%;
+        width: 150px;
+        height: 150px;
+        max-width: 150px;
+        max-height: 150px;
         border-radius: 2em;
-        max-width: 200px;
         display: block;
         margin: 0 auto 1.5em auto;
+        object-fit: cover;
     }
     
     .social-icons {
@@ -545,11 +554,14 @@ a
     }
     
     .profile-pic {
-        height: 18%;
+        width: 120px;
+        height: 120px;
+        max-width: 120px;
+        max-height: 120px;
         border-radius: 1.5em;
-        max-width: 150px;
         display: block;
         margin: 0 auto 1em auto;
+        object-fit: cover;
     }
     
     .social-icons {
