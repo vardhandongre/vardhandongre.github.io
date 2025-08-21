@@ -17,21 +17,10 @@ body
     margin-bottom: 3em;
 }
 
-.profile-pic,
-.content img.profile-pic
+.profile-pic
 {
-    width: 200px !important;
-    height: 200px !important;
-    max-width: 200px !important;
-    max-height: 200px !important;
-    min-width: 200px !important;
-    min-height: 200px !important;
+    height: 25%;
     border-radius: 3em;
-    display: block;
-    margin: 0 auto 1.5em auto;
-    object-fit: cover;
-    box-sizing: border-box;
-    overflow: hidden;
 }
 
 h1
@@ -464,43 +453,14 @@ a
     }
     
     .profile-pic {
-        width: 150px;
-        height: 150px;
-        max-width: 150px;
-        max-height: 150px;
+        height: 20%;
         border-radius: 2em;
-        display: block;
-        margin: 0 auto 1.5em auto;
-        object-fit: cover;
-    }
-    
-    .social-icons {
-        text-align: center;
-        margin: 2em 0;
     }
     
     .social-icons img {
         width: 2.5em;
         height: 2.5em;
         margin: 3px;
-    }
-    
-    .publications-link, .gallery-link, .blog-link {
-        display: block;
-        text-align: center;
-        margin: 1em 0;
-        padding: 0.8em;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 8px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        text-decoration: none;
-        transition: all 0.3s ease;
-    }
-    
-    .publications-link:hover, .gallery-link:hover, .blog-link:hover {
-        background: rgba(255, 255, 255, 0.2);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
     
     .playground-section {
@@ -559,44 +519,14 @@ a
     }
     
     .profile-pic {
-        width: 120px;
-        height: 120px;
-        max-width: 120px;
-        max-height: 120px;
+        height: 18%;
         border-radius: 1.5em;
-        display: block;
-        margin: 0 auto 1em auto;
-        object-fit: cover;
-    }
-    
-    .social-icons {
-        text-align: center;
-        margin: 1.5em 0;
     }
     
     .social-icons img {
         width: 2em;
         height: 2em;
         margin: 2px;
-    }
-    
-    .publications-link, .gallery-link, .blog-link {
-        display: block;
-        text-align: center;
-        margin: 0.8em 0;
-        padding: 0.7em;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 8px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        text-decoration: none;
-        transition: all 0.3s ease;
-        font-size: 0.9em;
-    }
-    
-    .publications-link:hover, .gallery-link:hover, .blog-link:hover {
-        background: rgba(255, 255, 255, 0.2);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
     
     .playground-section {
