@@ -17,16 +17,21 @@ body
     margin-bottom: 3em;
 }
 
-.profile-pic
+.profile-pic,
+.content img.profile-pic
 {
-    width: 200px;
-    height: 200px;
-    max-width: 200px;
-    max-height: 200px;
+    width: 200px !important;
+    height: 200px !important;
+    max-width: 200px !important;
+    max-height: 200px !important;
+    min-width: 200px !important;
+    min-height: 200px !important;
     border-radius: 3em;
     display: block;
     margin: 0 auto 1.5em auto;
     object-fit: cover;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 h1
