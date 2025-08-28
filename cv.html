@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Curriculum Vitae - Vardhan Dongre</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .cv-section {
+            margin-bottom: 3em;
+        }
+        
+        .cv-section h2 {
+            color: #7AE6FF;
+            border-bottom: 2px solid rgba(122, 230, 255, 0.3);
+            padding-bottom: 0.5em;
+            margin-bottom: 1.5em;
+        }
+        
+        .cv-item {
+            margin-bottom: 2em;
+            padding: 1.5em;
+            background: linear-gradient(135deg, rgba(15, 20, 26, 0.6), rgba(10, 14, 20, 0.8));
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .cv-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            border-color: rgba(122, 230, 255, 0.3);
+        }
+        
+        .cv-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5em;
+            flex-wrap: wrap;
+        }
+        
+        .cv-item-title {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 1.3em;
+            font-weight: 700;
+            color: white;
+            margin: 0;
+        }
+        
+        .cv-item-date {
+            font-family: 'DM Mono', monospace;
+            color: #7AE6FF;
+            font-size: 1em;
+            font-weight: 400;
+        }
+        
+        .cv-item-subtitle {
+            font-family: 'Ubuntu', sans-serif;
+            color: #B8C5D1;
+            font-size: 1.1em;
+            margin: 0.2em 0;
+            font-style: italic;
+        }
+        
+        .cv-item-description {
+            font-family: 'DM Mono', monospace;
+            color: #E8F1F8;
+            font-size: 1em;
+            line-height: 1.6;
+            margin-top: 1em;
+        }
+        
+        .cv-item-description ul {
+            margin-top: 0.5em;
+            padding-left: 1.5em;
+        }
+        
+        .cv-item-description li {
+            margin-bottom: 0.5em;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5em;
+            margin-top: 1em;
+        }
+        
+        .skill-category {
+            background: linear-gradient(135deg, rgba(15, 20, 26, 0.6), rgba(10, 14, 20, 0.8));
+            border-radius: 12px;
+            padding: 1.5em;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .skill-category:hover {
+            transform: translateY(-2px);
+            border-color: rgba(122, 230, 255, 0.3);
+        }
+        
+        .skill-category h3 {
+            font-family: 'Ubuntu', sans-serif;
+            color: #7AE6FF;
+            font-size: 1.2em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        
+        .skill-list {
+            font-family: 'DM Mono', monospace;
+            color: #E8F1F8;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        
+        .contact-info {
+            background: linear-gradient(135deg, rgba(15, 20, 26, 0.8), rgba(10, 14, 20, 0.9));
+            border-radius: 15px;
+            padding: 2em;
+            border: 1px solid rgba(122, 230, 255, 0.2);
+            text-align: center;
+            margin-bottom: 3em;
+        }
+        
+        .contact-info h1 {
+            background: linear-gradient(135deg, #7AE6FF, #A990FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5em;
+        }
+        
+        .contact-details {
+            font-family: 'DM Mono', monospace;
+            color: #B8C5D1;
+            margin-top: 1em;
+        }
+        
+        .contact-details a {
+            color: #7AE6FF;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-details a:hover {
+            color: white;
+        }
+        
+        /* Mobile responsive adjustments */
+        @media screen and (max-width: 768px) {
+            .cv-item-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .cv-item-date {
+                margin-top: 0.5em;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 1em;
+            }
+            
+            .contact-info {
+                padding: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="contact-info">
+            <h1>Vardhan Dongre</h1>
+            <p style="font-family: 'Ubuntu', sans-serif; color: #E8F1F8; font-size: 1.2em; margin: 0.5em 0;">Ph.D. Student & AI Researcher</p>
+            <div class="contact-details">
+                <p>Email: <a href="mailto:vdongre2@illinois.edu">vdongre2[AT]illinois[DOT]edu</a></p>
+                
+            </div>
+        </div>
+
+        <div class="cv-section">
+            <h2>Education</h2>
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <h3 class="cv-item-title">Ph.D. in Computer Science</h3>
+                        <p class="cv-item-subtitle">University of Illinois, Urbana-Champaign</p>
+                    </div>
+                    <span class="cv-item-date">Aug 2023 – Expected May 2028</span>
+                </div>
+
+            </div>
+            
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <h3 class="cv-item-title">MS in Computer Science</h3>
+                        <p class="cv-item-subtitle">University of Illinois, Urbana-Champaign</p>
+                    </div>
+                    <span class="cv-item-date">Aug 2020 – May 2022</span>
+                </div>
+                
+            </div>
+            
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <h3 class="cv-item-title">MS in Civil and Environmental Engineering</h3>
+                        <p class="cv-item-subtitle">University of Illinois, Urbana-Champaign</p>
+                    </div>
+                    <span class="cv-item-date">Aug 2018 – May 2020</span>
+                </div>
+                
+            </div>
+            
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <h3 class="cv-item-title">B.Tech (Hons.) in Civil Engineering</h3>
+                        <p class="cv-item-subtitle">National Institute of Technology, Bhopal, India</p>
+                    </div>
+                    <span class="cv-item-date">Jul 2013 – Apr 2017</span>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="cv-section">
+            <h2>Experience</h2>
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <h3 class="cv-item-title">Graduate Researcher</h3>
+                        <p class="cv-item-subtitle">ConvAI Lab / AIFARMS Institute, UIUC</p>
+                    </div>
+                    <span class="cv-item-date">May 2024 – Present</span>
+                </div>
+            </div>
+            
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <h3 class="cv-item-title">Research Scientist/Engineer Intern</h3>
+                        <p class="cv-item-subtitle">Adobe Research, San Jose, CA</p>
+                    </div>
+                    <span class="cv-item-date">May 2025 – Aug 2025</span>
+                </div>
+            </div>
+            
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <h3 class="cv-item-title">AI Research Software Engineer, Robotics & Computer Vision</h3>
+                        <p class="cv-item-subtitle">Brunswick Corporation I-Jet Lab, Champaign, IL</p>
+                    </div>
+                    <span class="cv-item-date">Jul 2022 – Aug 2023</span>
+                </div>
+            </div>
+            
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <h3 class="cv-item-title">Computer Vision & Deep Learning Engineer Intern</h3>
+                        <p class="cv-item-subtitle">Brunswick Corporation I-Jet Lab, Champaign, IL</p>
+                    </div>
+                    <span class="cv-item-date">May 2021 – Aug 2021</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="cv-section">
+            <h2>Awards</h2>
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <h3 class="cv-item-title">Illinois Computes Program</h3>
+                        <p class="cv-item-subtitle">UIUC</p>
+                    </div>
+                    <span class="cv-item-date">Aug 2024 – May 2025</span>
+                </div>
+            </div>
+            
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <h3 class="cv-item-title">CS PhD Fellowship</h3>
+                        <p class="cv-item-subtitle">UIUC</p>
+                    </div>
+                    <span class="cv-item-date">Aug 2023 – May 2024</span>
+                </div>
+            </div>
+            
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <h3 class="cv-item-title">Ashby Prize in Computational Science</h3>
+                        <p class="cv-item-subtitle">CAII</p>
+                    </div>
+                    <span class="cv-item-date">May 2022</span>
+                </div>
+            </div>
+            
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <h3 class="cv-item-title">NCSA-NVIDIA Hackathon, 1st Prize</h3>
+                        <p class="cv-item-subtitle"></p>
+                    </div>
+                    <span class="cv-item-date">Jan 2021</span>
+                </div>
+            </div>
+            
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <h3 class="cv-item-title">Silver Medal</h3>
+                        <p class="cv-item-subtitle">NIT Bhopal</p>
+                    </div>
+                    <span class="cv-item-date">Apr 2017</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="cv-section">
+            <h2>Funded Projects</h2>
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <h3 class="cv-item-title">Defense Advanced Research Projects Agency (DARPA)</h3>
+                        <p class="cv-item-subtitle">PI: Dilek Hakkani-Tür</p>
+                    </div>
+                </div>
+                <div class="cv-item-description">
+                    <p><strong>Title:</strong> <em>Friction for Accountability in Conversational Transactions (FACT)</em></p>
+                    <p><strong>Thrust:</strong> Friction and Accountability in Dialogue with Embodied Agents</p>
+                </div>
+            </div>
+            
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <h3 class="cv-item-title">Amazon-Illinois Center on AI for Interactive Conversational Experiences (AICE)</h3>
+                        <p class="cv-item-subtitle">PI: Vikram S. Adve, Co-PI: Gokhan Tur, Dilek Hakkani-Tür</p>
+                    </div>
+                </div>
+                <div class="cv-item-description">
+                    <p><strong>Title:</strong> <em>Multi-Agent LLM-Based Reasoning, Computation and Data Discovery for Decision Services</em></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cv-section">
+            <h2>Mentoring Experience</h2>
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <h3 class="cv-item-title">University of Illinois Urbana-Champaign</h3>
+                        <p class="cv-item-subtitle"></p>
+                    </div>
+                    <span class="cv-item-date">Sep 2023 – Present</span>
+                </div>
+                <div class="cv-item-description">
+                    <p>Advising undergraduate and graduate students in CS on multimodal reasoning and LLM alignment</p>
+                </div>
+            </div>
+            
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <h3 class="cv-item-title">Brunswick Corporation</h3>
+                        <p class="cv-item-subtitle"></p>
+                    </div>
+                    <span class="cv-item-date">May 2022 – Aug 2023</span>
+                </div>
+                <div class="cv-item-description">
+                    <p>Mentored undergraduates on projects in machine perception and visual-inertial odometry</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cv-section">
+            <h2>Academic Service</h2>
+            <div class="cv-item">
+                <div class="cv-item-description">
+                    <h4 style="color: #B8C5D1; margin-bottom: 0.5em;">Conference Reviewer:</h4>
+                    <ul>
+                        <li>NeurIPS 2024 – Present</li>
+                        <li>AISTATS 2024 – Present</li>
+                        <li>ICLR 2024 – Present</li>
+                        <li>ACL Rolling Review (ARR) 2024 – Present</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-link">&larr; Back to Home</a>
+    </div>
+</body>
+</html> 

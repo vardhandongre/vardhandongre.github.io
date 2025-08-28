@@ -54,6 +54,33 @@ a
     margin: 5px;
 }
 
+.cv-icon
+{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3em;
+    height: 3em;
+    margin: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.cv-icon:hover
+{
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(122, 230, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
 .publications-link
 {
     font-family: 'DM Mono', monospace;
@@ -463,6 +490,13 @@ a
         margin: 3px;
     }
     
+    .cv-icon {
+        width: 2.5em;
+        height: 2.5em;
+        margin: 3px;
+        font-size: 0.8em;
+    }
+    
     .playground-section {
         margin-top: 2em;
         padding: 1.5em;
@@ -527,6 +561,13 @@ a
         width: 2em;
         height: 2em;
         margin: 2px;
+    }
+    
+    .cv-icon {
+        width: 2em;
+        height: 2em;
+        margin: 2px;
+        font-size: 0.7em;
     }
     
     .playground-section {
