@@ -69,8 +69,8 @@ a
 
 .cv-icon svg
 {
-    width: 2.4em;
-    height: 2.4em;
+    width: 3em;
+    height: 3em;
     transition: all 0.3s ease;
 }
 
@@ -500,8 +500,8 @@ a
     }
     
     .cv-icon svg {
-        width: 2em;
-        height: 2em;
+        width: 2.5em;
+        height: 2.5em;
     }
     
     .playground-section {
@@ -577,8 +577,8 @@ a
     }
     
     .cv-icon svg {
-        width: 1.6em;
-        height: 1.6em;
+        width: 2em;
+        height: 2em;
     }
     
     .playground-section {
