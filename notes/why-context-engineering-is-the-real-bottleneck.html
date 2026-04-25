@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Why Context Engineering Is the Real Bottleneck — Vardhan Dongre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_shared.css">
+<link rel="stylesheet" href="_post.css">
+<script src="../theme-init.js"></script>
+</head>
+<body>
+<main class="page">
+
+  <nav class="top">
+    <a href="../index.html" class="home">← Vardhan Dongre</a>
+    <ul>
+      <li><a href="../index.html#research">Research</a></li>
+      <li><a href="../index.html#publications">Publications</a></li>
+      <li><a href="index.html" class="is-current">Notes</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+      <li><button class="theme-toggle" data-theme-toggle type="button" aria-label="Toggle theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+      </button></li>
+    </ul>
+  </nav>
+
+  <article>
+    <div class="kicker">
+      <span>Feb 03, 2026</span><span class="dot">·</span>
+      <span>7 min read</span><span class="dot">·</span>
+      <span class="ptag">Alignment</span><span class="dot">·</span>
+      <span class="ptag">Position</span>
+    </div>
+
+    <h1>Why Context Engineering — Not Scale — Is the Real Bottleneck</h1>
+    <p class="byline">A short position piece. Disagreement welcome.</p>
+
+    <p class="lede">The most expensive thing in modern AI is not parameters or compute. It is the silent, underexamined choice of <em>what the model gets to see</em> at inference time.</p>
+
+    <div class="body">
+
+      <p>“Context engineering” is the unglamorous cousin of prompt engineering, and it is doing most of the actual work behind every deployed system worth using. Retrieval, routing, summarization, memory, scratch buffers, tool schemas, role priming — these are not implementation details. They are the system. The model is a fixed asset; the context window is where design happens.</p>
+
+      <h2>Three claims</h2>
+
+      <p><strong>One:</strong> for any model above a certain capability threshold, performance on a deployed task is governed by the quality of the context construction, not the size of the underlying model. Doubling parameters helps less than halving the irrelevant tokens in the prompt.</p>
+
+      <p><strong>Two:</strong> the failure modes of long-running agents are almost entirely context failures — stale memory, conflicting evidence, role bleed, tool-output overflow. Models do not “forget” in any meaningful sense; their context curators forget for them.</p>
+
+      <p><strong>Three:</strong> we are evaluating context engineering with the wrong instruments. Single-turn benchmarks reward models that ignore context cleverly. Multi-turn benchmarks that hold context construction fixed reward models that compensate for bad context. Neither is what we want.</p>
+
+      <figure class="plot">
+        <div class="placeholder">
+          <svg viewBox="0 0 500 300" preserveAspectRatio="none" aria-hidden="true">
+            <line x1="50" y1="260" x2="480" y2="260" stroke="#7a756c" stroke-width="1"/>
+            <line x1="50" y1="40"  x2="50"  y2="260" stroke="#7a756c" stroke-width="1"/>
+            <!-- bars: param doubling -->
+            <rect x="90"  y="190" width="40" height="70" fill="oklch(48% 0.09 25 / 0.3)"/>
+            <rect x="170" y="170" width="40" height="90" fill="oklch(48% 0.09 25 / 0.3)"/>
+            <rect x="250" y="158" width="40" height="102" fill="oklch(48% 0.09 25 / 0.3)"/>
+            <!-- bars: context curation -->
+            <rect x="130" y="120" width="40" height="140" fill="oklch(48% 0.09 25)"/>
+            <rect x="210" y="80"  width="40" height="180" fill="oklch(48% 0.09 25)"/>
+            <rect x="290" y="58"  width="40" height="202" fill="oklch(48% 0.09 25)"/>
+            <text x="55" y="32" font-family="JetBrains Mono, monospace" font-size="10" fill="#7a756c">TASK SUCCESS (rel.)</text>
+            <text x="110" y="278" font-family="JetBrains Mono, monospace" font-size="9" fill="#7a756c" text-anchor="middle">1×</text>
+            <text x="190" y="278" font-family="JetBrains Mono, monospace" font-size="9" fill="#7a756c" text-anchor="middle">2×</text>
+            <text x="270" y="278" font-family="JetBrains Mono, monospace" font-size="9" fill="#7a756c" text-anchor="middle">4×</text>
+            <text x="380" y="170" font-family="JetBrains Mono, monospace" font-size="9" fill="#1a1814">context curation</text>
+            <text x="380" y="220" font-family="JetBrains Mono, monospace" font-size="9" fill="#7a756c">parameter scale</text>
+          </svg>
+        </div>
+        <figcaption><b>Figure 1.</b> Stylized comparison: returns from doubling parameters vs. doubling investment in context curation. Numbers illustrative.</figcaption>
+      </figure>
+
+      <h2>What this looks like in practice</h2>
+
+      <p>Concretely, the wins I keep seeing in deployed systems come from the same handful of moves: retrieval that rewrites the query before searching, summaries that are <em>structured</em> rather than free-text, hard limits on tool-output token budgets with explicit truncation policies, and an explicit <em>memory schema</em> the agent is allowed to update rather than a free-form scratchpad.</p>
+
+      <p>None of this is research-paper exciting. All of it works.</p>
+
+      <h2>Why this is unfashionable</h2>
+
+      <p>Context engineering does not scale a chart line. It does not produce a leaderboard number. It is system-design work, and system design is hard to publish. So we publish the model and underplay the context, and then wonder why open replications underperform on the same task.</p>
+
+      <p>I don't have a tidy conclusion. I think we should be writing more papers about prompts, retrievers, and memory, and we should be embarrassed that we treat them as engineering rather than science.</p>
+
+    </div>
+
+    <nav class="post-nav">
+      <a href="embodied-conversational-agents.html">← Embodied Conversational Agents</a>
+      <a href="index.html">All notes →</a>
+    </nav>
+
+  </article>
+
+  <footer>
+    <span>© 2026 Vardhan Dongre</span>
+    <span><a href="../index.html" style="color:inherit">Back to home</a></span>
+  </footer>
+
+</main>
+<script src="../theme-toggle.js"></script>
+</body>
+</html>

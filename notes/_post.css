@@ -1,0 +1,62 @@
+/* Article reading layout — narrow column, serif body */
+.page{max-width:680px;margin:0 auto;padding:72px 32px 96px}
+@media(max-width:600px){.page{padding:48px 22px 72px}}
+
+article{margin-top:24px}
+.kicker{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.kicker .dot{opacity:.5}
+.kicker .ptag{color:var(--ink-soft)}
+
+article h1{font-family:var(--serif);font-weight:500;font-size:40px;line-height:1.12;margin:0 0 16px;letter-spacing:-.01em;text-wrap:balance}
+.byline{font-family:var(--serif);font-style:italic;color:var(--muted);font-size:16px;margin:0 0 8px}
+.byline strong{color:var(--ink-soft);font-weight:500;font-style:normal;font-family:var(--sans);font-size:14px}
+
+.lede{font-family:var(--serif);font-size:21px;line-height:1.5;color:var(--ink-soft);margin:36px 0 28px;text-wrap:pretty}
+
+.body{font-family:var(--serif);font-size:19px;line-height:1.65;color:var(--ink);text-wrap:pretty}
+.body p{margin:0 0 22px}
+.body p:first-letter{}
+.body h2{font-family:var(--serif);font-weight:500;font-size:24px;line-height:1.25;margin:48px 0 14px;letter-spacing:-.005em}
+.body h3{font-family:var(--serif);font-weight:500;font-size:20px;font-style:italic;margin:36px 0 10px;color:var(--ink-soft)}
+.body a{color:var(--accent)}
+.body em{font-style:italic}
+.body strong{font-weight:600}
+.body blockquote{margin:28px 0;padding:6px 0 6px 22px;border-left:2px solid var(--accent);font-style:italic;color:var(--ink-soft);font-size:19px}
+.body ul, .body ol{margin:0 0 22px;padding-left:24px}
+.body li{margin:0 0 8px}
+.body code{font-family:var(--mono);font-size:.86em;background:color-mix(in oklch, var(--ink) 6%, transparent);padding:1.5px 6px;border-radius:4px}
+.body hr{border:0;border-top:1px solid var(--rule);margin:48px auto;width:60%}
+
+/* Figures: image + caption, and plot placeholder */
+figure{margin:36px 0;}
+figure img{width:100%;display:block;border:1px solid var(--rule)}
+figure .placeholder{
+  width:100%;aspect-ratio:16/9;border:1px solid var(--rule);
+  background:
+    repeating-linear-gradient(45deg, color-mix(in oklch, var(--ink) 4%, transparent) 0 8px, transparent 8px 16px),
+    var(--bg);
+  display:flex;align-items:center;justify-content:center;color:var(--muted);font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+figure.plot .placeholder{aspect-ratio:5/3;background:var(--bg);border:1px solid var(--rule);position:relative;overflow:hidden}
+figure.plot .placeholder svg{width:100%;height:100%;display:block}
+figcaption{font-family:var(--sans);font-size:13px;line-height:1.5;color:var(--muted);margin-top:10px;padding-left:0;text-wrap:pretty}
+figcaption b{font-weight:600;color:var(--ink-soft);margin-right:6px}
+
+/* References */
+.refs{margin-top:64px;padding-top:24px;border-top:1px solid var(--rule)}
+.refs h2{font-family:var(--serif);font-weight:500;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+.refs ol{font-family:var(--sans);font-size:14px;color:var(--ink-soft);padding-left:22px;margin:0}
+.refs li{margin:0 0 8px;line-height:1.5}
+.refs li::marker{color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* Post footer nav */
+.post-nav{margin-top:48px;padding-top:24px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;font-family:var(--sans);font-size:14px}
+.post-nav a{color:var(--muted);border-bottom:none}
+.post-nav a:hover{color:var(--accent);background:none}
+
+/* Theme-aware plot SVGs (override hardcoded colors in dark mode) */
+html[data-theme="dark"] figure.plot svg [stroke="#7a756c"]{stroke:var(--muted)}
+html[data-theme="dark"] figure.plot svg [stroke="#e6e1d8"]{stroke:var(--rule)}
+html[data-theme="dark"] figure.plot svg [stroke="#3d3a34"]{stroke:var(--ink-soft)}
+html[data-theme="dark"] figure.plot svg [fill="#7a756c"]{fill:var(--muted)}
+html[data-theme="dark"] figure.plot svg [fill="#1a1814"]{fill:var(--ink)}
+html[data-theme="dark"] figure.plot svg [fill="#3d3a34"]{fill:var(--ink-soft)}
