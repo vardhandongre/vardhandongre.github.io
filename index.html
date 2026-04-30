@@ -8,13 +8,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <script src="theme-init.js"></script>
-<script>
-const TWEAKS = /*EDITMODE-BEGIN*/{
-  "density": "regular",
-  "accent": "burgundy",
-  "showCV": true
-}/*EDITMODE-END*/;
-</script>
 <style>
   :root, html[data-theme="light"]{
     --bg:#faf8f5;
@@ -22,8 +15,6 @@ const TWEAKS = /*EDITMODE-BEGIN*/{
     --ink-soft:#3d3a34;
     --muted:#7a756c;
     --rule:#e6e1d8;
-    --portrait-a:#ece6da;
-    --portrait-b:#e3dccd;
     --accent: oklch(48% 0.09 25);
     --accent-soft: oklch(48% 0.09 25 / 0.08);
     --serif:'Crimson Pro', Georgia, serif;
@@ -36,8 +27,6 @@ const TWEAKS = /*EDITMODE-BEGIN*/{
     --ink-soft:#bdb8a8;
     --muted:#7e8278;
     --rule:#2e3633;
-    --portrait-a:#252e2a;
-    --portrait-b:#2a3430;
     --accent: oklch(72% 0.08 35);
     --accent-soft: oklch(72% 0.08 35 / 0.12);
   }
@@ -49,61 +38,88 @@ const TWEAKS = /*EDITMODE-BEGIN*/{
   a{color:var(--accent);text-decoration:none;border-bottom:1px solid color-mix(in oklch, var(--accent) 30%, transparent);transition:border-color .15s, background .15s}
   a:hover{border-bottom-color:var(--accent);background:var(--accent-soft)}
 
-  .page{max-width:760px;margin:0 auto;padding:72px 32px 96px}
-  @media(max-width:600px){.page{padding:48px 22px 72px}}
+  /* Two-column layout */
+  .app-container{display:flex;max-width:1200px;margin-left:10%;margin-right:auto;padding:4rem 1.5rem;gap:4rem;position:relative}
 
-  /* Top nav */
-  nav.top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:64px;font-size:14px;color:var(--muted)}
-  nav.top .name{font-family:var(--serif);font-size:18px;color:var(--ink);font-weight:500;letter-spacing:.01em}
-  nav.top ul{display:flex;gap:28px;margin:0;padding:0;list-style:none}
-  nav.top a{color:var(--muted);border-bottom:none}
-  nav.top a:hover{color:var(--accent);background:none}
+  /* Sidebar */
+  .sidebar{width:150px;flex-shrink:0;position:sticky;top:4rem;height:fit-content}
+  .sidebar ul{list-style:none;padding:0;margin:0}
+  .sidebar li{margin-bottom:.5rem;text-align:right}
+  .sidebar a{color:var(--muted);font-family:var(--sans);font-size:.95rem;font-weight:500;border-bottom:none;display:block;padding:.25rem 0;transition:color .2s}
+  .sidebar a:hover{color:var(--accent);background:none}
 
-  /* Theme toggle */
+  /* Theme toggle in sidebar */
+  .sidebar .theme-toggle-wrap{text-align:right;margin-top:1.5rem}
   .theme-toggle{appearance:none;border:1px solid var(--rule);background:transparent;color:var(--muted);
     width:30px;height:30px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;
-    margin-left:18px;padding:0;transition:color .15s, border-color .15s, background .15s}
+    padding:0;transition:color .15s, border-color .15s, background .15s}
   .theme-toggle:hover{color:var(--accent);border-color:color-mix(in oklch, var(--accent) 40%, var(--rule))}
   .theme-toggle svg{width:14px;height:14px;display:block}
   .theme-toggle .moon{display:none}
   .theme-toggle .sun{display:block}
   html[data-theme="dark"] .theme-toggle .moon{display:block}
   html[data-theme="dark"] .theme-toggle .sun{display:none}
-  nav.top ul{align-items:center}
 
-  /* Hero */
-  .hero{display:grid;grid-template-columns:1fr 160px;gap:48px;align-items:start;margin-bottom:64px}
-  @media(max-width:600px){.hero{grid-template-columns:1fr;gap:28px}.hero .portrait{order:-1;width:128px}}
-  h1{font-family:var(--serif);font-weight:500;font-size:42px;line-height:1.1;margin:0 0 6px;letter-spacing:-.01em}
-  .role{font-family:var(--serif);font-style:italic;color:var(--ink-soft);font-size:19px;margin:0 0 22px}
-  .intro{font-size:16.5px;color:var(--ink-soft);margin:0}
-  .portrait{width:160px;aspect-ratio:4/5;border:1px solid var(--rule);overflow:hidden}
-  .portrait img{width:100%;height:100%;object-fit:cover;display:block}
+  /* Mobile hamburger */
+  .mobile-menu-toggle{display:none;position:fixed;top:1rem;right:1.5rem;z-index:1001;
+    appearance:none;background:var(--bg);border:1px solid var(--rule);color:var(--ink);
+    font-size:1.5rem;cursor:pointer;padding:.4rem .6rem;border-radius:6px}
 
-  /* Section */
-  section{margin-top:56px}
-  h2{font-family:var(--serif);font-weight:500;font-size:20px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 22px;padding-bottom:10px;border-bottom:1px solid var(--rule)}
-  p{margin:0 0 14px;color:var(--ink-soft)}
+  @media(max-width:850px){
+    .app-container{flex-direction:column;padding-top:4rem;margin-left:auto;margin-right:auto}
+    .mobile-menu-toggle{display:block}
+    .sidebar{position:fixed;top:0;left:0;width:250px;height:100vh;
+      background:var(--bg);padding:2rem;box-shadow:2px 0 10px rgba(0,0,0,.1);
+      transform:translateX(-100%);transition:transform .3s ease-in-out;z-index:1000;overflow-y:auto}
+    .sidebar.open{transform:translateX(0)}
+    .sidebar li{text-align:left;margin-bottom:.5rem}
+    .sidebar .theme-toggle-wrap{text-align:left}
+  }
+
+  /* Main content */
+  .main-content{flex:1;max-width:720px}
+
+  /* Intro / Hero */
+  .intro-container{display:flex;align-items:flex-start;gap:2rem;margin-bottom:3rem}
+  .profile-pic{width:160px;height:160px;border-radius:4px;object-fit:cover;flex-shrink:0}
+  .intro-text{flex:1}
+  .name{font-family:var(--serif);font-size:2rem;font-weight:600;margin:0 0 .5rem;line-height:1.2;letter-spacing:-.01em}
+  .role{font-family:var(--serif);font-style:italic;color:var(--ink-soft);font-size:1.1rem;margin:0 0 .75rem}
+  .bio{font-size:15.5px;color:var(--ink-soft);margin:0}
+
+  /* Social links row */
+  .social-links{display:flex;gap:1.5rem;margin-top:1rem;flex-wrap:wrap}
+  .social-links a{font-size:.95rem;color:var(--muted);border-bottom:1px solid var(--rule)}
+  .social-links a:hover{color:var(--accent);border-bottom-color:var(--accent);background:none}
+
+  @media(max-width:600px){
+    .intro-container{flex-direction:column;align-items:flex-start}
+    .profile-pic{width:128px;height:128px}
+    .social-links{gap:1rem}
+  }
+
+  /* Sections */
+  section{margin-bottom:2rem}
+  h2{font-family:var(--serif);font-weight:600;font-size:1.2rem;text-transform:uppercase;
+    letter-spacing:.05em;color:var(--muted);margin-top:2.5rem;margin-bottom:1rem;
+    border-bottom:1px solid var(--rule);padding-bottom:.5rem}
+  p{margin:0 0 .75rem;color:var(--ink-soft)}
   p:last-child{margin-bottom:0}
 
   /* Interests list */
-  ul.interests{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 24px}
+  ul.interests{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:6px 24px}
   @media(max-width:520px){ul.interests{grid-template-columns:1fr}}
-  ul.interests li{font-family:var(--serif);font-size:18px;color:var(--ink);padding:6px 0;border-bottom:1px dotted var(--rule);position:relative;padding-left:28px}
-  ul.interests li::before{content:"§";color:var(--accent);font-family:var(--serif);font-style:italic;position:absolute;left:4px;top:6px;font-size:18px;opacity:.7}
+  ul.interests li{font-family:var(--serif);font-size:17px;color:var(--ink);padding:5px 0;border-bottom:1px dotted var(--rule);position:relative;padding-left:24px}
+  ul.interests li::before{content:"\00a7";color:var(--accent);font-family:var(--serif);font-style:italic;position:absolute;left:2px;top:5px;font-size:17px;opacity:.7}
 
   /* News / list rows */
-  .rows{display:grid;grid-template-columns:88px 1fr;gap:14px 22px}
+  .rows{display:grid;grid-template-columns:88px 1fr;gap:10px 22px}
   .rows .when{font-family:var(--mono);font-size:12px;color:var(--muted);padding-top:3px;letter-spacing:.02em}
-  .rows .what{color:var(--ink-soft);font-size:15.5px}
+  .rows .what{color:var(--ink-soft);font-size:15px}
   .rows .what strong{color:var(--ink);font-weight:500}
 
-  /* Affiliations */
-  .affil{display:flex;flex-wrap:wrap;gap:8px 10px;margin-top:8px}
-  .affil span{font-family:var(--mono);font-size:11px;color:var(--muted);border:1px solid var(--rule);padding:4px 8px;letter-spacing:.04em;text-transform:uppercase}
-
   /* Mentoring callout */
-  .callout{border-left:2px solid var(--accent);padding:4px 0 4px 18px;margin-top:8px;color:var(--ink-soft);font-size:16.5px}
+  .callout{border-left:2px solid var(--accent);padding:4px 0 4px 18px;margin-top:8px;color:var(--ink-soft);font-size:16px}
   .callout em{font-style:normal;color:var(--ink);font-weight:500}
 
   /* Contact */
@@ -111,226 +127,158 @@ const TWEAKS = /*EDITMODE-BEGIN*/{
   .contact dt{font-family:var(--mono);font-size:12px;color:var(--muted);padding-top:3px;text-transform:uppercase;letter-spacing:.04em}
   .contact dd{margin:0;color:var(--ink-soft)}
 
-  footer{margin-top:96px;padding-top:24px;border-top:1px solid var(--rule);font-family:var(--mono);font-size:11px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-family:var(--mono);font-size:11px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 
-  /* Density variants */
-  body[data-density="compact"] .page{padding-top:48px}
-  body[data-density="compact"] section{margin-top:40px}
-  body[data-density="compact"] .hero{margin-bottom:44px}
-  body[data-density="airy"] section{margin-top:80px}
-  body[data-density="airy"] .hero{margin-bottom:88px}
-
-  /* Tweaks toggle hide */
-  body[data-cv="false"] #cv-section{display:none}
+  /* Interests sub-heading */
+  h3.sub{font-family:var(--serif);font-weight:500;font-size:1rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:1.5rem 0 .75rem}
 </style>
 </head>
-<body data-density="regular" data-cv="true">
+<body>
 
-<main class="page">
+<button class="mobile-menu-toggle" aria-label="Toggle Menu" onclick="document.querySelector('.sidebar').classList.toggle('open')">&#9776;</button>
 
-  <nav class="top">
-    <span class="name" aria-hidden="true"></span>
+<div class="app-container">
+
+  <nav class="sidebar">
     <ul>
+      <li><a href="#about">About</a></li>
       <li><a href="#research">Research</a></li>
       <li><a href="#news">News</a></li>
       <li><a href="#publications">Publications</a></li>
       <li><a href="notes/index.html">Notes</a></li>
+      <li><a href="#mentoring">Mentoring</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><button class="theme-toggle" data-theme-toggle type="button" aria-label="Toggle theme">
+    </ul>
+    <div class="theme-toggle-wrap">
+      <button class="theme-toggle" data-theme-toggle type="button" aria-label="Toggle theme">
         <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
         <svg class="moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
-      </button></li>
-    </ul>
+      </button>
+    </div>
   </nav>
 
-  <header class="hero">
-    <div>
-      <h1>Vardhan Dongre</h1>
-      <p class="role">Ph.D. Student &amp; AI Researcher</p>
-      <p class="intro">
-        I am a Ph.D. candidate in Computer Science at the University of Illinois Urbana-Champaign, where I am advised by <a href="https://vikram.cs.illinois.edu/">Vikram S. Adve</a> and <a href="https://siebelschool.illinois.edu/about/people/faculty/dilek">Dilek Hakkani-Tür</a>. I also closely collaborate with <a href="https://siebelschool.illinois.edu/about/people/faculty/gokhan">Gokhan Tur</a> and <a href="https://siebelschool.illinois.edu/about/people/faculty/j-reid1">John F. Reid</a>.
-      </p>
-    </div>
-    <div class="portrait">
-      <img src="imgs/ppic.jpg" alt="Portrait of Vardhan Dongre">
-    </div>
-  </header>
+  <div class="main-content">
 
-  <section id="research">
-    <h2>Research</h2>
-    <p>
-      My work lies at the intersection of <em>machine learning</em>, <em>natural language processing</em>, and <em>computer vision</em>. I am particularly interested in conversational generative agents that can interact with both the digital and physical world for real-world applications.
-    </p>
-    <p>
-      I am affiliated with the <a href="https://aifarms.illinois.edu/">AIFARMS Institute</a> and a member of the <a href="https://uiuc-conversational-ai-lab.github.io/">ConvAI Lab</a> at UIUC. My work has been generously supported by gifts and grants from Amazon Science, Adobe Research, NSF, and DARPA.
-    </p>
-
-    <h3 style="font-family:var(--serif);font-weight:500;font-size:18px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:28px 0 14px">Interests</h3>
-    <ul class="interests">
-      <li>Conversational Agents</li>
-      <li>Multimodal Reasoning</li>
-      <li>Alignment &amp; Control of LLMs</li>
-      <li>Interactive Physical Intelligence</li>
-    </ul>
-  </section>
-
-  <section id="news">
-    <h2>News</h2>
-    <div class="rows">
-      <div class="when">2026 · 04</div>
-      <div class="what"><strong>Joining Amazon Science</strong>, Alexa team in the upcoming Fall.</div>
-
-      <div class="when">2026 · 01</div>
-      <div class="what"><strong>Joining Adobe Research</strong> this summer in the Intelligent Agents &amp; Assistants team.</div>
-
-      <div class="when">2025 · 11</div>
-      <div class="what"><strong>“Drift No More? Context Equilibria in Multi-Turn LLM Interactions”</strong> awarded Oral Spotlight at the AAAI 2026 <em>Trustworthy Agents</em> and <em>Personalization for Foundation Models</em> workshops.</div>
-
-      <div class="when">2025 · 11</div>
-      <div class="what"><strong>MIRAGE Benchmark</strong> accepted at NeurIPS 2025.</div>
-    </div>
-  </section>
-
-  <section id="publications">
-    <h2>Selected Publications</h2>
-    <div class="rows">
-      <div class="when">2025</div>
-      <div class="what">
-        <strong>MIRAGE: A Benchmark for Multimodal Information-Seeking and Reasoning in Agricultural Expert-Guided Conversations</strong><br>
-        Vardhan Dongre, Chi Gui, Shubham Garg, Hooshang Nayyeri, Gokhan Tur, Dilek Hakkani-Tür, Vikram S. Adve. <em>NeurIPS, 2025.</em>
-        &nbsp;<a href="https://arxiv.org/abs/2506.20100">paper</a> · <a href="https://github.com/MIRAGE-Benchmark/MIRAGE-Benchmark">code</a> · <a href="https://mirage-benchmark.github.io/">leaderboard</a>
+    <header id="about" class="intro-container">
+      <img src="imgs/ppic.jpg" alt="Portrait of Vardhan Dongre" class="profile-pic">
+      <div class="intro-text">
+        <h1 class="name">Vardhan Dongre</h1>
+        <p class="role">Ph.D. Student &amp; AI Researcher</p>
+        <p class="bio">
+          I am a Ph.D. candidate in Computer Science at the University of Illinois Urbana-Champaign, where I am advised by <a href="https://vikram.cs.illinois.edu/">Vikram S. Adve</a> and <a href="https://siebelschool.illinois.edu/about/people/faculty/dilek">Dilek Hakkani-T&uuml;r</a>. I also closely collaborate with <a href="https://siebelschool.illinois.edu/about/people/faculty/gokhan">Gokhan Tur</a> and <a href="https://siebelschool.illinois.edu/about/people/faculty/j-reid1">John F. Reid</a>.
+        </p>
+        <div class="social-links">
+          <a href="https://scholar.google.com/citations?user=sSt2OvIAAAAJ&hl=en&authuser=1">Scholar</a>
+          <a href="https://github.com/vardhandongre">GitHub</a>
+          <a href="https://x.com/Vardhan_Dongre">X / Twitter</a>
+          <a href="mailto:vdongre2@illinois.edu">Email</a>
+        </div>
       </div>
+    </header>
 
-      <div class="when">2025</div>
-      <div class="what">
-        <strong>Better Slow than Sorry: Introducing Positive Friction for Reliable Dialogue Systems</strong><br>
-        Mert İnan, Anthony Sicilia, Suvodip Dey, Vardhan Dongre, et al. <em>Transactions of the Association for Computational Linguistics, 2025.</em>
-        &nbsp;<a href="https://arxiv.org/abs/2501.17348">paper</a> · <a href="https://github.com/Merterm/Positive-Friction-Dialogue">code</a>
-      </div>
+    <main>
 
-      <div class="when">2024</div>
-      <div class="what">
-        <strong>ReSpAct: Harmonizing Reasoning, Speaking, and Acting Towards Building Large Language Model-Based Conversational AI Agents</strong><br>
-        Vardhan Dongre, Xiaocheng Yang, Emre Can Acikgoz, Suvodip Dey, Gokhan Tur, Dilek Hakkani-Tür. <em>IWSDS, 2024 (Oral).</em>
-        &nbsp;<a href="https://arxiv.org/abs/2411.00927">paper</a> · <a href="https://github.com/vardhandongre/Respact">code</a>
-      </div>
-    </div>
-    <p style="margin-top:18px;font-size:14px;color:var(--muted)">
-      A full list is available on <a href="https://scholar.google.com/citations?user=sSt2OvIAAAAJ&hl=en&authuser=1">Google Scholar</a> and my <a href="cv.html" id="cv-link">CV</a>.
-    </p>
-  </section>
+      <section id="research">
+        <h2>Research</h2>
+        <p>
+          My work lies at the intersection of <em>machine learning</em>, <em>natural language processing</em>, and <em>computer vision</em>. I am particularly interested in conversational generative agents that can interact with both the digital and physical world for real-world applications.
+        </p>
+        <p>
+          I am affiliated with the <a href="https://aifarms.illinois.edu/">AIFARMS Institute</a> and a member of the <a href="https://uiuc-conversational-ai-lab.github.io/">ConvAI Lab</a> at UIUC. My work has been generously supported by gifts and grants from Amazon Science, Adobe Research, NSF, and DARPA.
+        </p>
 
-  <section>
-    <h2>Mentoring</h2>
-    <div class="callout">
-      <em>I am always interested in mentoring highly-motivated undergraduate and master's students in ECE/CS.</em>
-      If you are at UIUC (preferred) and want to discuss project ideas or research opportunities, please feel free to reach out.
-    </div>
-  </section>
+        <h3 class="sub">Interests</h3>
+        <ul class="interests">
+          <li>Conversational Agents</li>
+          <li>Multimodal Reasoning</li>
+          <li>Alignment &amp; Control of LLMs</li>
+          <li>Interactive Physical Intelligence</li>
+        </ul>
+      </section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <dl class="contact">
-      <dt>Email</dt><dd><span id="email-obf" data-u="vdongre2" data-d="illinois.edu">vdongre2 [at] illinois [dot] edu</span></dd>
-      <dt>Office</dt><dd>Siebel Center for Computer Science, UIUC<br>National Center for Supercomputing Applications</dd>
-      <dt>Scholar</dt><dd><a href="https://scholar.google.com/citations?user=sSt2OvIAAAAJ&hl=en&authuser=1">Google Scholar</a></dd>
-      <dt>GitHub</dt><dd><a href="https://github.com/vardhandongre">github.com/vardhandongre</a></dd>
-      <dt>X</dt><dd><a href="https://x.com/Vardhan_Dongre">@vardhan_dongre</a></dd>
-    </dl>
-  </section>
+      <section id="news">
+        <h2>News</h2>
+        <div class="rows">
+          <div class="when">2026 &middot; 04</div>
+          <div class="what"><strong>Joining Amazon Science</strong>, Alexa team in the upcoming Fall.</div>
 
-  <footer>
-    <span>© 2026 Vardhan Dongre</span>
-    <span>Last updated · Apr 2026</span>
-  </footer>
+          <div class="when">2026 &middot; 01</div>
+          <div class="what"><strong>Joining Adobe Research</strong> this summer in the Intelligent Agents &amp; Assistants team.</div>
 
-</main>
+          <div class="when">2025 &middot; 11</div>
+          <div class="what"><strong>"Drift No More? Context Equilibria in Multi-Turn LLM Interactions"</strong> awarded Oral Spotlight at the AAAI 2026 <em>Trustworthy Agents</em> and <em>Personalization for Foundation Models</em> workshops.</div>
+
+          <div class="when">2025 &middot; 11</div>
+          <div class="what"><strong>MIRAGE Benchmark</strong> accepted at NeurIPS 2025.</div>
+        </div>
+      </section>
+
+      <section id="publications">
+        <h2>Selected Publications</h2>
+        <div class="rows">
+          <div class="when">2025</div>
+          <div class="what">
+            <strong>MIRAGE: A Benchmark for Multimodal Information-Seeking and Reasoning in Agricultural Expert-Guided Conversations</strong><br>
+            Vardhan Dongre, Chi Gui, Shubham Garg, Hooshang Nayyeri, Gokhan Tur, Dilek Hakkani-T&uuml;r, Vikram S. Adve. <em>NeurIPS, 2025.</em>
+            &nbsp;<a href="https://arxiv.org/abs/2506.20100">paper</a> &middot; <a href="https://github.com/MIRAGE-Benchmark/MIRAGE-Benchmark">code</a> &middot; <a href="https://mirage-benchmark.github.io/">leaderboard</a>
+          </div>
+
+          <div class="when">2025</div>
+          <div class="what">
+            <strong>Better Slow than Sorry: Introducing Positive Friction for Reliable Dialogue Systems</strong><br>
+            Mert &#304;nan, Anthony Sicilia, Suvodip Dey, Vardhan Dongre, et al. <em>Transactions of the Association for Computational Linguistics, 2025.</em>
+            &nbsp;<a href="https://arxiv.org/abs/2501.17348">paper</a> &middot; <a href="https://github.com/Merterm/Positive-Friction-Dialogue">code</a>
+          </div>
+
+          <div class="when">2024</div>
+          <div class="what">
+            <strong>ReSpAct: Harmonizing Reasoning, Speaking, and Acting Towards Building Large Language Model-Based Conversational AI Agents</strong><br>
+            Vardhan Dongre, Xiaocheng Yang, Emre Can Acikgoz, Suvodip Dey, Gokhan Tur, Dilek Hakkani-T&uuml;r. <em>IWSDS, 2024 (Oral).</em>
+            &nbsp;<a href="https://arxiv.org/abs/2411.00927">paper</a> &middot; <a href="https://github.com/vardhandongre/Respact">code</a>
+          </div>
+        </div>
+        <p style="margin-top:18px;font-size:14px;color:var(--muted)">
+          A full list is available on <a href="https://scholar.google.com/citations?user=sSt2OvIAAAAJ&hl=en&authuser=1">Google Scholar</a> and my <a href="cv.html" id="cv-link">CV</a>.
+        </p>
+      </section>
+
+      <section id="mentoring">
+        <h2>Mentoring</h2>
+        <div class="callout">
+          <em>I am always interested in mentoring highly-motivated undergraduate and master's students in ECE/CS.</em>
+          If you are at UIUC (preferred) and want to discuss project ideas or research opportunities, please feel free to reach out.
+        </div>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <dl class="contact">
+          <dt>Email</dt><dd><span id="email-obf" data-u="vdongre2" data-d="illinois.edu">vdongre2 [at] illinois [dot] edu</span></dd>
+          <dt>Office</dt><dd>Siebel Center for Computer Science, UIUC<br>National Center for Supercomputing Applications</dd>
+          <dt>Scholar</dt><dd><a href="https://scholar.google.com/citations?user=sSt2OvIAAAAJ&hl=en&authuser=1">Google Scholar</a></dd>
+          <dt>GitHub</dt><dd><a href="https://github.com/vardhandongre">github.com/vardhandongre</a></dd>
+          <dt>X</dt><dd><a href="https://x.com/Vardhan_Dongre">@vardhan_dongre</a></dd>
+        </dl>
+      </section>
+
+    </main>
+
+    <footer>
+      <span>&copy; 2026 Vardhan Dongre</span>
+      <span>Last updated &middot; Apr 2026</span>
+    </footer>
+
+  </div>
+</div>
 
 <script src="theme-toggle.js"></script>
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-<script src="tweaks-panel.jsx" type="text/babel"></script>
-
-<div id="tweaks-root"></div>
-<script type="text/babel">
-const ACCENTS_LIGHT = {
-  burgundy: 'oklch(48% 0.09 25)',
-  forest:   'oklch(45% 0.07 150)',
-  navy:     'oklch(42% 0.08 250)',
-  ink:      'oklch(28% 0.01 60)',
-  rust:     'oklch(55% 0.12 45)',
-};
-const ACCENTS_DARK = {
-  burgundy: 'oklch(72% 0.08 35)',
-  forest:   'oklch(72% 0.07 145)',
-  navy:     'oklch(72% 0.08 245)',
-  ink:      'oklch(78% 0.01 60)',
-  rust:     'oklch(75% 0.10 50)',
-};
-
-function applyTweaks(t){
-  document.body.dataset.density = t.density;
-  document.body.dataset.cv = t.showCV ? 'true' : 'false';
-  const root = document.documentElement.style;
-  const isDark = document.documentElement.dataset.theme === 'dark';
-  const palette = isDark ? ACCENTS_DARK : ACCENTS_LIGHT;
-  const accent = palette[t.accent] || palette.burgundy;
-  root.setProperty('--accent', accent);
-  root.setProperty('--accent-soft', accent.replace(/\)$/, ' / 0.12)'));
-  const cvLink = document.getElementById('cv-link');
-  if (cvLink) cvLink.style.display = t.showCV ? '' : 'none';
-}
-applyTweaks(TWEAKS);
-
-// re-apply accent when theme toggles
-new MutationObserver(()=>applyTweaks(window.__currentTweaks || TWEAKS))
-  .observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
-
-const { useEffect } = React;
-
-function App(){
-  if (!window.useTweaks || !window.TweaksPanel) return null;
-  const [tweaks, setTweak] = window.useTweaks(TWEAKS);
-
-  useEffect(()=>{ window.__currentTweaks = tweaks; applyTweaks(tweaks); }, [tweaks]);
-
-  const { TweaksPanel, TweakSection, TweakRadio, TweakToggle } = window;
-
-  return (
-    <TweaksPanel title="Tweaks">
-      <TweakSection title="Layout">
-        <TweakRadio label="Density"
-          value={tweaks.density}
-          onChange={v => setTweak('density', v)}
-          options={[
-            {label:'Compact', value:'compact'},
-            {label:'Regular', value:'regular'},
-            {label:'Airy',    value:'airy'},
-          ]}/>
-      </TweakSection>
-      <TweakSection title="Accent">
-        <TweakRadio label="Color"
-          value={tweaks.accent}
-          onChange={v => setTweak('accent', v)}
-          options={[
-            {label:'Burgundy', value:'burgundy'},
-            {label:'Forest',   value:'forest'},
-            {label:'Navy',     value:'navy'},
-            {label:'Ink',      value:'ink'},
-            {label:'Rust',     value:'rust'},
-          ]}/>
-      </TweakSection>
-      <TweakSection title="Sections">
-        <TweakToggle label="Show CV link"
-          value={tweaks.showCV}
-          onChange={v => setTweak('showCV', v)}/>
-      </TweakSection>
-    </TweaksPanel>
-  );
-}
-
-ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<App/>);
+<script>
+// Close mobile menu when clicking a link
+document.querySelectorAll('.sidebar a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.querySelector('.sidebar').classList.remove('open');
+  });
+});
 </script>
 </body>
 </html>
