@@ -5,18 +5,10 @@ window.POSTS = [
   {
     slug: "embodied-conversational-agents",
     title: "Embodied Conversational Agents and the Promise of Foundation Models",
-    date: "2026-04-12",
-    summary: "Where conversational agents meet the physical world, and what foundation models actually buy us.",
-    tags: ["Agents", "Multimodal", "Position"],
-    minutes: 14
-  },
-  {
-    slug: "why-context-engineering-is-the-real-bottleneck",
-    title: "Why Context Engineering — Not Scale — Is the Real Bottleneck",
-    date: "2026-02-03",
-    summary: "A short position piece: the most expensive choice in deployed AI is what the model gets to see.",
-    tags: ["Alignment", "Position"],
-    minutes: 7
+    date: "2025-03-08",
+    summary: "Why language in embodied AI should be a cognitive scaffold rather than a command channel — and where the datasets, simulators, and models stand today.",
+    tags: ["Embodied AI", "Agents", "Survey"],
+    minutes: 12
   }
 ];
 

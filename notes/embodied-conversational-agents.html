@@ -4,11 +4,41 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Embodied Conversational Agents and the Promise of Foundation Models — Vardhan Dongre</title>
+<meta name="description" content="Why language in embodied AI should be a cognitive scaffold rather than a command channel — and where the datasets, simulators, and models stand today." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/site.css">
 <script src="../assets/theme-init.js"></script>
+<style>
+  .cover{margin:-26px -30px 28px;border-radius:6px 6px 0 0;overflow:hidden}
+  .cover img{display:block;width:100%;border:0;border-radius:0}
+  @media(max-width:600px){.cover{margin:-20px -18px 22px}}
+  .toc{font-family:var(--sans);font-size:14.5px;margin:0 0 30px;padding:14px 18px;border:1px solid var(--rule);border-radius:6px;background:var(--card-2)}
+  .toc b{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .toc ol{margin:0;padding-left:20px}
+  .toc li{margin:0 0 4px}
+  .toc a{color:var(--ink-soft);border:0}
+  .toc a:hover{color:var(--accent-ink)}
+  .aside-fig{float:right;width:220px;margin:6px 0 14px 26px}
+  .aside-fig img{border:0}
+  @media(max-width:600px){.aside-fig{float:none;width:180px;margin:0 auto 20px}}
+  .definition{background:var(--card-2);border:1px solid var(--rule);border-left:2px solid var(--accent);border-radius:0 6px 6px 0;padding:16px 20px;margin:26px 0;font-size:17.5px;line-height:1.55;color:var(--ink-soft);clear:both}
+  .video{margin:32px 0}
+  .video .frame{position:relative;aspect-ratio:16/9;border:1px solid var(--rule);border-radius:4px;overflow:hidden;background:#000}
+  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .video .frame.pending{background:var(--card-2);display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;font-family:var(--sans);font-size:14.5px;color:var(--muted)}
+  .video .frame.pending a{color:var(--accent-ink)}
+  .tip{display:flex;gap:12px;align-items:flex-start;font-family:var(--sans);font-size:14.5px;color:var(--ink-soft);background:var(--accent-soft);border-radius:6px;padding:12px 16px;margin:-14px 0 28px}
+  .tip span:first-child{font-size:16px}
+  .body ol.trends li b{color:var(--ink)}
+  .cite{margin-top:48px;padding-top:22px;border-top:1px solid var(--rule-strong)}
+  .cite h2{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:0 0 12px;font-family:var(--serif)}
+  .cite pre{margin:0 0 16px}
+  .cite p{font-family:var(--sans);font-size:14px;color:var(--muted);margin:0}
+  .refs ol{columns:1}
+  .refs li{font-size:13.5px}
+</style>
 </head>
 <body data-root="../" data-page="notes">
 
@@ -16,130 +46,286 @@
   <div class="content">
     <div class="content-inner">
 
+      <article class="card">
+        <div class="cover"><img src="../imgs/notes/embodied/cover.jpg" alt=""></div>
 
-  <article class="card">
-    <header class="article-head">
-    <div class="kicker">
-      <span>Apr 12, 2026</span><span class="dot">·</span>
-      <span>14 min read</span><span class="dot">·</span>
-      <span class="ptag">Agents</span><span class="dot">·</span>
-      <span class="ptag">Multimodal</span>
-    </div>
+        <header class="article-head">
+          <div class="kicker">
+            <span>Mar 08, 2025</span><span class="dot">&middot;</span>
+            <span>12 min read</span><span class="dot">&middot;</span>
+            <span>Embodied AI</span><span class="dot">&middot;</span>
+            <span>Agents</span>
+          </div>
+          <h1>Embodied Conversational Agents and the Promise of Foundation Models</h1>
+          <p class="byline"><b>Vardhan Dongre</b>, <b>Dilek Hakkani-T&uuml;r</b>, <b>Gokhan Tur</b></p>
+        </header>
 
-    <h1>Embodied Conversational Agents and the Promise of Foundation Models</h1>
-    <p class="byline">A research summary on where conversational agents meet the physical world — and what foundation models actually buy us.</p>
-    </header>
+        <nav class="toc">
+          <b>Contents</b>
+          <ol>
+            <li><a href="#reimagining">Reimagining Language in Embodied AI: Beyond Commands to Cognitive Partnership</a></li>
+            <li><a href="#promise">The Promise of Foundation Models</a></li>
+            <li><a href="#conversationality">A Case for Conversationality in Embodied Agents</a></li>
+            <li><a href="#trends">Trends in EAI Research: Evolution of Resources &amp; Themes</a></li>
+            <li><a href="#bridge">The Bridge That Needs to Be Built: Challenges and Future Directions</a></li>
+            <li><a href="#citation">Citation</a> &middot; <a href="#references">References</a></li>
+          </ol>
+        </nav>
 
-    <p class="lede">For two decades, embodied conversational agents lived in the gap between two communities that rarely talked. Foundation models, almost by accident, are now closing that gap — but the interesting questions are not the ones the headlines suggest.</p>
+        <div class="body">
 
-    <div class="body">
+          <h2 id="reimagining">Reimagining Language in Embodied AI: Beyond Commands to Cognitive Partnership</h2>
 
-      <p>The classical embodied conversational agent (ECA) was, in the original Cassell-and-colleagues sense, a humanlike interface: a body, a face, a voice, and the dialogue management to coordinate them. The dream was a system you could <em>talk to</em>, that would talk back the way people do — with gaze, gesture, and a stake in the shared physical scene. The reality, for a long time, was a brittle pipeline: ASR into NLU into a dialogue manager into a behavior planner into an animation engine, with each stage assuming the previous one was tidier than it really was.</p>
+          <p>In the rapidly evolving landscape of artificial intelligence (AI), we find ourselves at a pivotal moment where language capabilities and physical embodiment are poised to converge in unprecedented ways. While Large Language Models (LLMs) have revolutionized how machines process and generate language (OpenAI et al. 2024; Wei et al., 2022), a crucial frontier remains unconquered: the seamless integration of this linguistic prowess with physical embodiment. The vision of embodied conversational agents discussed in (Cassell et al. 2000) &ndash; can be extended to robots (Physical Embodiments) that can not only execute tasks in your environment but also engage in natural, contextually-grounded dialogue with their human partners &ndash; representing the next great challenge in AI.</p>
 
-      <p>Foundation models did not solve this problem. What they did was something more interesting: they made the cost of <em>trying</em> close to zero, and they unified representations across modalities that we used to treat as separate engineering disciplines.</p>
+          <figure class="aside-fig">
+            <img src="../imgs/notes/embodied/warpsol.jpg" alt="Ink drawing of a robot head on a segmented neck">
+            <figcaption>Artist: WARPSoL</figcaption>
+          </figure>
 
-      <h2>What the field actually wants</h2>
+          <p>Just as humans learn language through physical interaction with their environment, grounding words in actions, perceptions, and experiences, these future agents must bridge the gap between abstract language understanding and concrete physical reality. The recent advances in foundation models (Zhou, Ce, et al. 2024; Hu et al. 2024) have given us a glimpse of what's possible in language understanding, but the journey toward embodied agents that can naturally converse while navigating the physical world is just beginning. This intersection of language and embodiment isn't merely about functional communication (Hu et al. 2025) &ndash; giving and receiving instructions &ndash; but about creating agents that can engage in fluid, natural dialogue (Dongre et al. 2024), ask clarifying questions when uncertain (Singh et al. 2022; Ren et al. 2023; Min et al. 2025), and build shared understanding through interaction (Narayan-Chen et al. 2020; Bara et al. 2021). As we stand at this threshold, the challenge before us is clear: how do we move from today's largely disconnected language and robotics systems toward truly integrated agents that can participate in the kind of rich, grounded conversations that characterize human interaction?</p>
 
-      <p>When researchers say “embodied agent,” they tend to mean one of three things, and conflating them is the source of most disagreement at workshops:</p>
+          <div class="definition">
+            &ldquo;Embodied agents are intelligent systems integrated with a physical form that enables them to interact with their surroundings. Unlike traditional AI systems, embodied agents have the ability to perceive through sensors, reason, and act within their environments through actuators. These agents combine sensory inputs (e.g., vision, touch, and sound) with advanced decision-making algorithms to perform tasks ranging from navigation and manipulation to complex problem-solving. <em>Embodied Conversational Agents</em> are specifically humanlike in the way they use language along with their embodiment during conversations.&rdquo;
+          </div>
 
-      <ul>
-        <li><strong>Situated dialogue.</strong> An agent that reasons about a shared scene — “the red cup, not that one” — and grounds language in perception.</li>
-        <li><strong>Task-following robots.</strong> A system that turns natural-language instructions into low-level control on real hardware.</li>
-        <li><strong>Social agents.</strong> Avatars and characters whose embodiment is the <em>point</em>: tutors, companions, customer-facing kiosks.</li>
-      </ul>
+          <figure class="video">
+            <div class="frame">
+              <iframe src="https://www.youtube-nocookie.com/embed/Sq1QZB5baNw" title="Figure 01 + OpenAI speech-to-speech reasoning demo" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <figcaption>Embodied conversational reasoning demonstration by Figure 01 + OpenAI. Credits: Figure AI.</figcaption>
+          </figure>
 
-      <p>These three live on different timescales, with different evaluation cultures, and they should probably stop being treated as the same field. But they share a problem that foundation models <em>do</em> address: the bottleneck of grounded common sense.</p>
+          <h2 id="promise">The Promise of Foundation Models: A New Horizon</h2>
 
-      <figure>
-        <div class="placeholder">Hero figure — diagram of perception → dialogue → action loop</div>
-        <figcaption><b>Figure 1.</b> The classical ECA loop, redrawn for the foundation-model era. The boxes are the same; what changed is that adjacent boxes can now share a representation rather than negotiating across hand-built schemas.</figcaption>
-      </figure>
+          <p>The quest for general-purpose robots&mdash;capable of seamlessly operating in diverse environments and performing an array of complex tasks&mdash;has long been an aspiration in robotics. While traditional methods have made significant strides, they face challenges in generalization, data scarcity, and adaptability. Enter foundation models, including LLMs and Vision-Language Models (VLMs), which are now emerging as transformative tools in this space (Hu et al. 2024). The advent of foundation models has dramatically reshaped our understanding of what's possible in human-machine communication. These models demonstrate remarkable capabilities in understanding context, maintaining coherent conversations, and even exhibiting common-sense reasoning. However, their knowledge remains largely disconnected from the physical world &ndash; they can discuss actions without truly understanding their physical implications or grounding them in real-world experience.</p>
 
-      <h2>The quiet shift: shared representations</h2>
+          <figure>
+            <img src="../imgs/notes/embodied/fig1-architecture.jpg" alt="Diagram: vision and language foundation models take text and RGB inputs, produce object info, text and API plans and rewards for a planner and controller that acts in an environment, while also handling single- and multi-turn interaction with a human">
+            <figcaption><b>Figure 1.</b> A typical architecture of foundation models enabling embodied systems.</figcaption>
+          </figure>
 
-      <p>The headline story about LLMs in agents is that they replaced the dialogue manager. That is true, but it is the boring version of the story. The more important shift is that vision encoders, speech encoders, and language models now sit close enough in representation space that the <em>seams</em> between modules are smaller than the modules themselves.</p>
+          <p>This disconnection highlights one of the central challenges in developing conversational embodied agents: bridging the gap between language understanding and physical reality. It's not enough for an agent to process language fluently; it must understand how words relate to actions, objects, and physical constraints. When a human says, &ldquo;Could you help me organize these books?&rdquo; the agent needs to understand not just the words, but the physical implications &ndash; recognizing books, understanding spatial relationships, and knowing the practical constraints of book arrangement.</p>
 
-      <p>This matters because the hardest problem in embodied dialogue was never parsing — it was <em>reference resolution under partial observation</em>. When a user says “put it on the shelf next to the one I just moved,” a deployable system needs to maintain a joint belief over linguistic history, scene state, action history, and user intent. We used to model each of those with its own bespoke representation and pay translation costs at every interface. We don't have to anymore.</p>
+          <h2 id="conversationality">A Case for Conversationality in Embodied Agents</h2>
 
-      <blockquote>The interesting research question is no longer “can the model do it?” but “what does the model still get systematically wrong, and is it the same thing every time?”</blockquote>
+          <figure>
+            <img src="../imgs/notes/embodied/newyorker-covers.jpg" alt="Four New Yorker covers depicting robots living alongside people: playing cards, examining a child, walking through a city, and walking a dog">
+            <figcaption>Robots in everyday life, as imagined on the covers of <em>The New Yorker</em> (2008&ndash;2019).</figcaption>
+          </figure>
 
-      <h3>An aside on benchmarks</h3>
+          <p>The conversational abilities of embodied agents are critical for seamless interaction with humans. These agents leverage conversational AI to understand natural language commands, ask clarifying questions, and provide feedback. With the integration of LLMs, such as GPT and PaLM-E (Driess et al. 2023), embodied agents have become proficient at handling complex queries, generating human-like responses, and even engaging in multi-turn dialogues (Team Scotty bot, 2023). LLMs enhance these capabilities by improving contextual understanding, reasoning, and providing the ability to adapt to different conversational styles (see Figure 2). For example, an embodied agent in a home setting can ask a user about their preferences for cleaning or cooking tasks, explain its decisions, or even learn user-specific patterns over time. This synergy between conversational AI and embodied intelligence is changing the landscape of human-robot interaction, making robots more intuitive, accessible, and aligned with human needs.</p>
 
-      <p>Most embodied-agent benchmarks measure either task success in simulation or single-turn grounding accuracy. Neither captures what makes deployed agents fail. In our own work on multi-turn interactions, the dominant failure mode is not factual error — it is <em>context drift</em>: the model's working representation of the conversation slowly diverges from the user's, and recovery becomes impossible without a hard reset.</p>
+          <figure>
+            <img src="../imgs/notes/embodied/fig2-llm-map.jpg" alt="Hand-drawn map with LLM at the center and arrows to Planning, Interactivity, Memory, Policy, and Decision Making, each annotated with representative citations">
+            <figcaption><b>Figure 2.</b> Roles LLMs play in embodied agents. <em>Planning:</em> Singh et al. 2022; Huang et al. 2022; Song et al. 2023; Wu et al. 2023. <em>Interactivity:</em> Chi et al. 2019; Ren et al. 2023; Chen et al. 2023; Dai et al. 2024; Dongre et al. 2024; Min et al. 2025. <em>Memory:</em> Sarch et al. 2023, 2024; Yoo et al. 2024; Kagaya et al. 2024; Xie et al. 2024; Zhu et al. 2024. <em>Policy:</em> Ahn et al. 2022; Liang et al. 2023; Tang et al. 2023; Ghosh et al. 2024; Lee et al. 2024. <em>Decision-making:</em> Huang et al. 2022; Yao et al. 2022; Shinn et al. 2023; Nottingham et al. 2023; Li et al. 2024; Chen et al. 2024.</figcaption>
+          </figure>
 
-      <figure class="plot">
-        <div class="placeholder">
-          <svg viewBox="0 0 500 300" preserveAspectRatio="none" aria-hidden="true">
-            <!-- axes -->
-            <line x1="50" y1="260" x2="480" y2="260" stroke="#7a756c" stroke-width="1"/>
-            <line x1="50" y1="40"  x2="50"  y2="260" stroke="#7a756c" stroke-width="1"/>
-            <!-- gridlines -->
-            <line x1="50" y1="200" x2="480" y2="200" stroke="#e6e1d8" stroke-width="1"/>
-            <line x1="50" y1="140" x2="480" y2="140" stroke="#e6e1d8" stroke-width="1"/>
-            <line x1="50" y1="80"  x2="480" y2="80"  stroke="#e6e1d8" stroke-width="1"/>
-            <!-- baseline (human) -->
-            <polyline fill="none" stroke="#3d3a34" stroke-width="2" stroke-dasharray="4 4"
-                      points="50,90 110,92 170,95 230,98 290,100 350,103 410,106 470,108"/>
-            <!-- model A: drifts up (worse) -->
-            <polyline fill="none" stroke="#5f9b65" stroke-width="2.5"
-                      points="50,95 110,108 170,128 230,156 290,184 350,210 410,228 470,238"/>
-            <!-- model B: more stable -->
-            <polyline fill="none" stroke="#5f9b65" stroke-width="2.5" stroke-opacity=".45"
-                      points="50,98 110,104 170,114 230,128 290,140 350,150 410,158 470,164"/>
-            <!-- labels -->
-            <text x="55" y="32" font-family="JetBrains Mono, monospace" font-size="10" fill="#7a756c">CONTEXT DRIFT (rel.)</text>
-            <text x="430" y="278" font-family="JetBrains Mono, monospace" font-size="10" fill="#7a756c">turns →</text>
-            <text x="475" y="245" font-family="JetBrains Mono, monospace" font-size="9" fill="#1a1814" text-anchor="end">model A</text>
-            <text x="475" y="170" font-family="JetBrains Mono, monospace" font-size="9" fill="#3d3a34" text-anchor="end">model B</text>
-            <text x="475" y="116" font-family="JetBrains Mono, monospace" font-size="9" fill="#7a756c" text-anchor="end">human</text>
-          </svg>
+          <h2 id="trends">Trends in EAI Research: Evolution of Resources &amp; Themes in Language + Embodied AI</h2>
+
+          <p>The progression of language in embodied AI (EAI) has followed a clear trajectory from simple instruction following to increasingly interactive scenarios (see Plot 1). At its foundation lies navigation, where systems learn to follow route instructions in both indoor and outdoor environments. What began with simple point-to-point navigation has evolved into open vocabulary manipulation task scenarios (Yenamandra et al. 2024) where agents must understand novel object references. Early benchmarks like R2R (Room-to-Room) and Room-Across-Room (Anderson et al. 2018; Ku et al. 2020) focused on single-turn navigation instructions, where agents learned to follow natural language directives in simulated environments. This evolved with datasets like ALFRED (Shridhar et al. 2020) and TOUCHDOWN (Chen et al. 2019) introducing more complex, multi-step task completion and outdoor navigation respectively. The field then saw a shift toward interactive scenarios with CVDN (Thomason et al. 2020) and TEACh (Padmakumar et al. 2021) introducing dialogue-based navigation and task completion, though these datasets remain limited in the depth and naturalness of their interactions.</p>
+
+          <figure>
+            <img src="../imgs/notes/embodied/plot1-trends.jpg" alt="Timeline plot of language-grounded embodied AI work from 2017 to 2025, colored by theme: language-conditioned policies, language-guided control, and language for embodied conversations">
+            <figcaption><b>Plot 1.</b> Trends in language-grounded embodied AI: works ranging from language-conditioned policies and language-guided control to language for embodied conversations.</figcaption>
+          </figure>
+          <div class="tip"><span>&#128161;</span><span>View this plot interactively: <a href="https://claude.site/artifacts/e5fb4f81-2482-4755-bb00-d409dae4d4e3" target="_blank" rel="noopener">Interactive Plot #1</a></span></div>
+
+          <p>The field has also ventured into more interactive domains through embodied question answering (EQA), where agents must actively explore their environment to answer queries (Singh et al.; Li et al.; Zhang et al. 2024). This has evolved from simple object-finding tasks to sophisticated scenarios requiring spatial reasoning, multi-target search, and even integration with external knowledge bases. The interaction patterns themselves have become increasingly sophisticated. While early systems relied on simple command-following, modern approaches incorporate clarification dialogue, error resolution, and help-seeking behaviors (Chi et al. 2019; Dai et al. 2024). This evolution reflects a deeper understanding that effective human-agent collaboration requires more than just executing instructions &ndash; it demands the ability to establish common ground, recognize uncertainty, and actively participate in joint problem-solving.</p>
+
+          <h3>Learning from Simulation</h3>
+
+          <p>Simulation environments have played a crucial role in this evolution &ndash; from AI2-THOR (Kolve et al. 2017) providing basic interaction capabilities to more sophisticated platforms like Habitat (Savva et al. 2019, Puig et al. 2023) enabling complex navigation and manipulation. Recent platforms like HumanTHOR (Wang et al. 2024) and Alexa Arena (Gao et al. 2023) are pushing toward more realistic human-robot collaboration scenarios.</p>
+
+          <figure>
+            <img src="../imgs/notes/embodied/plot2-simulators.jpg" alt="Timeline plot of embodied AI simulators showing a rapid increase in releases in recent years">
+            <figcaption><b>Plot 2.</b> Evolution of simulators for EAI research, with a recent rapid increase fueled by improvements in compute, computer graphics, and game-engine technologies.</figcaption>
+          </figure>
+          <div class="tip"><span>&#128161;</span><span>View this plot interactively: <a href="https://claude.site/artifacts/0d77ea1c-fd9a-4a92-adf9-7d6874ad44c7" target="_blank" rel="noopener">Interactive Plot #2</a></span></div>
+
+          <p>AI2-THOR marked one of the first major simulation environments purpose-built for embodied AI research. It introduced photo-realistic indoor scenes with basic interaction capabilities &ndash; agents could navigate, manipulate objects, and perform simple actions. However, it had limitations in terms of physics simulation and object interaction fidelity. Habitat emerged as a game-changer, introducing significantly improved rendering speed and efficiency, crucial for training embodied AI agents. It enabled training at scale with photorealistic environments from real-world scans (Matterport3D) (Chang et al. 2017). VirtualHome (Puig et al. 2018) introduced programmatic representation of household activities, allowing for more complex task planning and execution. These environments began supporting more sophisticated interactions and better physics simulation.</p>
+
+          <p><strong>Key evolution trends:</strong></p>
+          <ol class="trends">
+            <li><b>Visual fidelity:</b> from basic 3D rendering to photorealistic environments</li>
+            <li><b>Interaction complexity:</b> from simple navigation to complex manipulation</li>
+            <li><b>Physics simulation:</b> from basic collision detection to realistic object behavior</li>
+            <li><b>Scale:</b> from single rooms to entire buildings and outdoor spaces</li>
+            <li><b>Human modeling:</b> from static environments to dynamic human-agent interaction</li>
+          </ol>
+
+          <p>Current systems still struggle with tasks that require delicate movements or long sequences of actions, and they sometimes misinterpret ambiguous instructions. Yet, despite these challenges, the progress is undeniable (Li et al. 2025). We're moving towards a future where robots won't just follow commands but will truly understand and <strong>collaborate with us in natural, intuitive ways</strong>.</p>
+
+          <figure class="video">
+            <div class="frame pending">
+              <span>Video: ReSpAct agent demo.<br><a href="https://vardhandongre.notion.site/Embodied-Conversational-Agents-and-the-Promise-of-Foundation-Models-1442e61c204c804f907dd7a1fb44b0e1" target="_blank" rel="noopener">Watch on the original post &rarr;</a></span>
+            </div>
+            <figcaption>ReSpAct agent navigating a household environment to complete a &ldquo;pick and place&rdquo; task while interacting with the user (Dongre et al. 2024).</figcaption>
+          </figure>
+
+          <h2 id="bridge">The Bridge That Needs to Be Built: Challenges and Future Directions</h2>
+
+          <p>Language in embodied AI systems holds potential far beyond its current role of basic commands and task specifications. At its core, language can serve as a cognitive scaffold, enabling systems to build abstract representations of their experiences and generalize across situations &ndash; much like how humans use language to conceptualize and learn from their interactions with the physical world.</p>
+
+          <figure>
+            <img src="../imgs/notes/embodied/challenges.jpg" alt="Tree diagram breaking down the main challenges in robotics development">
+            <figcaption>An overview of the main challenges in robotics development, breaking down complex problems from teaching robots to adapt to new situations to ensuring they operate safely in uncertain environments. Source: Hu et al. 2024.</figcaption>
+          </figure>
+
+          <p>While we have robust datasets for instruction following and task completion, we lack large-scale, natural multi-turn dialogue datasets in embodied settings. Most existing dialogue datasets are either scripted or limited in scope, failing to capture the richness of natural human-agent interaction. Additionally, while simulation environments have grown more sophisticated, the gap between simulated and real-world interaction remains substantial. Another critical yet underexplored area is Theory of Mind (ToM)&mdash;the ability to attribute mental states such as beliefs, intentions, and desires to oneself and others to predict and interpret behavior (Premack &amp; Woodruff 1978; Kosinski 2024). ToM is essential for collaborative problem-solving, yet most datasets focus on functional rather than truly interactive communication. Similarly, advanced turn-taking models remain underdeveloped, with most systems using simplistic silence-based approaches rather than the sophisticated predictive mechanisms humans employ to create natural conversational flow (Skantze &amp; Irfan, 2025).</p>
+
+          <p>For EAI to achieve deeper human-agent collaboration, conversational agents must develop the ability to reason about the mental states, intentions, and knowledge of their human partners. This includes recognizing when a human might be confused, anticipating needs before they're explicitly stated, and adapting communication style based on the interaction context (&#304;nan et al. 2025).</p>
+
+          <figure>
+            <img src="../imgs/notes/embodied/future.jpg" alt="Illustrations of people and robots interacting">
+            <figcaption>Artists: Steve Armstrong, Mattias Adolfsson</figcaption>
+          </figure>
+
+          <p>Self-awareness naturally extends into collaborative problem-solving, where language facilitates rich, bi-directional dialogue between humans and embodied agents, enabling them to clarify goals, propose alternatives, and explain reasoning processes. Finally, language serves as a natural conduit for knowledge transfer, allowing systems to learn directly from human expertise through natural instruction rather than programmed rules. Together, these functions of language &ndash; as cognitive scaffold, metacognitive tool, collaboration enabler, and learning interface &ndash; represent a fundamental shift from viewing language as merely an input/output mechanism to understanding it as an integral component of embodied intelligence.</p>
+
+          <section class="cite" id="citation">
+            <h2>Cite this article</h2>
+<pre><code>@misc{embodiedconvai,
+  author       = {Vardhan Dongre and Dilek Hakkani-T\"{u}r and Gokhan Tur},
+  title        = {Embodied Conversational Agents and the Promise of Foundation Models},
+  howpublished = {\url{https://vardhandongre.com/notes/embodied-conversational-agents.html}},
+  year         = {2025}
+}</code></pre>
+            <p>Credits &mdash; art in this post by: CEED and Drew Wolf (cover art), WARPSoL, <em>The New Yorker</em>, Steve Armstrong, Mattias Adolfsson.</p>
+          </section>
+
+          <section class="refs" id="references">
+            <h2>References</h2>
+            <ol>
+              <li>Premack, D., &amp; Woodruff, G. &ldquo;Does the chimpanzee have a theory of mind?&rdquo; 1978.</li>
+              <li>Cassell et al. &ldquo;Embodied Conversational Agents.&rdquo; 2000.</li>
+              <li>Kolve et al. &ldquo;AI2-THOR: An Interactive 3D Environment for Visual AI.&rdquo; 2017.</li>
+              <li>Chang et al. &ldquo;Matterport3D: Learning from RGB-D Data in Indoor Environments.&rdquo; 2017.</li>
+              <li>Anderson et al. &ldquo;Vision-and-Language Navigation: Interpreting Visually-Grounded Navigation Instructions in Real Environments.&rdquo; 2018.</li>
+              <li>Das et al. &ldquo;Embodied Question Answering.&rdquo; 2018.</li>
+              <li>Gordon et al. &ldquo;IQA: Visual Question Answering in Interactive Environments.&rdquo; 2018.</li>
+              <li>Fried et al. &ldquo;Speaker-Follower Models for Vision-and-Language Navigation.&rdquo; 2018.</li>
+              <li>Puig et al. &ldquo;VirtualHome: Simulating Household Activities via Programs.&rdquo; 2018.</li>
+              <li>She et al. &ldquo;Language to Action: Towards Interactive Task Learning.&rdquo; 2018.</li>
+              <li>Chen et al. &ldquo;TOUCHDOWN: Natural Language Navigation and Spatial Reasoning in Visual Street Environments.&rdquo; 2019.</li>
+              <li>Yu et al. &ldquo;Multi-Target Embodied Question Answering.&rdquo; 2019.</li>
+              <li>Nguyen et al. &ldquo;Vision-and-Dialog Navigation.&rdquo; 2019.</li>
+              <li>Narayan-Chen et al. &ldquo;Collaborative Dialogue in Minecraft.&rdquo; 2019.</li>
+              <li>de Vries et al. &ldquo;Help Anna! Visual Navigation with Natural Multimodal Assistance.&rdquo; 2019.</li>
+              <li>Chi et al. &ldquo;Just Ask: An Interactive Learning Framework for Vision and Language Navigation.&rdquo; 2019.</li>
+              <li>Ma et al. &ldquo;Self-Monitoring Navigation Agent via Auxiliary Progress Estimation.&rdquo; 2019.</li>
+              <li>Ke et al. &ldquo;Tactical Rewind: Self-Correction via Backtracking in Vision-And-Language Navigation.&rdquo; 2019.</li>
+              <li>Zhu et al. &ldquo;Vision-Based Navigation With Language-Based Assistance via Imitation Learning.&rdquo; 2019.</li>
+              <li>Tan et al. &ldquo;Learning to Navigate Unseen Environments: Back Translation with Environmental Dropout.&rdquo; 2019.</li>
+              <li>Chen et al. &ldquo;Stay on the Path: Instruction Fidelity in Vision-and-Language Navigation.&rdquo; 2019.</li>
+              <li>Savva et al. &ldquo;Habitat: A Platform for Embodied AI Research.&rdquo; 2019.</li>
+              <li>Ku et al. &ldquo;Room-Across-Room: Multilingual Vision-and-Language Navigation with Dense Spatiotemporal Grounding.&rdquo; 2020.</li>
+              <li>Ilharco et al. &ldquo;Beyond the Nav-Graph: Vision-and-Language Navigation in Continuous Environments.&rdquo; 2020.</li>
+              <li>Qi et al. &ldquo;REVERIE: Remote Embodied Visual Referring Expression in Real Indoor Environments.&rdquo; 2020.</li>
+              <li>Nguyen et al. &ldquo;Demand-Driven Navigation in 3D Indoor Environments.&rdquo; 2020.</li>
+              <li>Shridhar et al. &ldquo;ALFRED: A Benchmark for Interpreting Grounded Instructions for Everyday Tasks.&rdquo; 2020.</li>
+              <li>Mishra et al. &ldquo;ObjectGoal Navigation in Visual Environments.&rdquo; 2020.</li>
+              <li>Thomason et al. &ldquo;CVDN: Cooperative Vision-and-Dialog Navigation.&rdquo; 2020.</li>
+              <li>Wijmans et al. &ldquo;Embodied Question Answering in Photorealistic Environments with Point Cloud Perception.&rdquo; 2020.</li>
+              <li>Zhu et al. &ldquo;RMM: A Recursive Mental Model for Dialog Navigation.&rdquo; 2020.</li>
+              <li>Hao et al. &ldquo;Towards Learning a Generic Agent for Vision-and-Language Navigation via Pre-Training.&rdquo; 2020.</li>
+              <li>Hong et al. &ldquo;VLN&#8635;BERT: A Recurrent Vision-and-Language BERT for Navigation.&rdquo; 2020.</li>
+              <li>Zhu et al. &ldquo;BabyWalk: Going Farther in Vision-and-Language Navigation by Taking Baby Steps.&rdquo; 2020.</li>
+              <li>Shridhar et al. &ldquo;Learning to Execute Instructions in a Minecraft Dialogue.&rdquo; 2020.</li>
+              <li>Bisk et al. &ldquo;Experience Grounds Language.&rdquo; 2020.</li>
+              <li>Zhu et al. &ldquo;SOON: Scenario Oriented Object Navigation with Graph-Based Exploration.&rdquo; 2021.</li>
+              <li>Li et al. &ldquo;BEHAVIOR: Benchmark for Everyday Household Activities in Virtual Interactive and Ecological Environments.&rdquo; 2021.</li>
+              <li>Park et al. &ldquo;VideoNavQA: Bridging the Gap between Visual and Embodied Question Answering.&rdquo; 2021.</li>
+              <li>Roy et al. &ldquo;K-EQA: Knowledge-Aware Embodied Question Answering.&rdquo; 2021.</li>
+              <li>Majumdar et al. &ldquo;Embodied BERT: A Transformer Model for Embodied Language-guided Visual Task Completion.&rdquo; 2021.</li>
+              <li>Min et al. &ldquo;FILM: Following Instructions in Language with Modular Methods.&rdquo; 2021.</li>
+              <li>Blukis et al. &ldquo;A Persistent Spatial Semantic Representation for High-level Natural Language Instruction Execution.&rdquo; 2021.</li>
+              <li>Nguyen et al. &ldquo;Look Wide and Interpret Twice: Improving Performance on Interactive Instruction-following Tasks.&rdquo; 2021.</li>
+              <li>Padmakumar et al. &ldquo;TEACh: Task-driven Embodied Agents that Chat.&rdquo; 2021.</li>
+              <li>Wang et al. &ldquo;History Aware Multimodal Transformer for Vision-and-Language Navigation.&rdquo; 2021.</li>
+              <li>Chen et al. &ldquo;Vision-and-Language Navigation: A Survey and Taxonomy.&rdquo; 2021.</li>
+              <li>Thomason et al. &ldquo;Core Challenges in Embodied Vision-Language Planning.&rdquo; 2021.</li>
+              <li>Nguyen et al. &ldquo;NDH-Full: Learning and Evaluating Navigational Agents on Full-Length Dialogue.&rdquo; 2021.</li>
+              <li>Bara et al. &ldquo;MindCraft: Theory of Mind Modeling for Situated Dialogue in Collaborative Tasks.&rdquo; 2021.</li>
+              <li>Wei et al. &ldquo;Chain of thought prompting elicits reasoning in large language models.&rdquo; NeurIPS 2022.</li>
+              <li>Ahn et al. &ldquo;Do As I Can, Not As I Say: Grounding Language in Robotic Affordances.&rdquo; 2022.</li>
+              <li>Gao et al. &ldquo;DialFRED: Dialogue-Enabled Agents for Embodied Instruction Following.&rdquo; 2022.</li>
+              <li>Ma et al. &ldquo;SQA3D: Situated Question Answering in 3D Scenes.&rdquo; 2022.</li>
+              <li>Chen et al. &ldquo;JARVIS: A Neuro-Symbolic Commonsense Reasoning Framework for Conversational Embodied Agents.&rdquo; 2022.</li>
+              <li>Zhao et al. &ldquo;One Step at a Time: Long-Horizon Vision-and-Language Navigation with Milestones.&rdquo; 2022.</li>
+              <li>Chen et al. &ldquo;Vision-and-Language Navigation: A Survey of Tasks, Methods, and Future Directions.&rdquo; 2022.</li>
+              <li>Singh et al. &ldquo;ProgPrompt: Generating Situated Robot Task Plans Using Large Language Models.&rdquo; 2022.</li>
+              <li>Chaplot et al. &ldquo;Learning to Act with Affordance-Aware Multimodal Neural SLAM.&rdquo; 2022.</li>
+              <li>Shridhar et al. &ldquo;Learning to Solve Voxel Building Embodied Tasks.&rdquo; 2022.</li>
+              <li>Singh et al. &ldquo;Ask4Help: Learning to Leverage an Expert for Embodied Tasks.&rdquo; 2022.</li>
+              <li>Huang et al. &ldquo;Language Models as Zero-Shot Planners: Extracting Actionable Knowledge for Embodied Agents.&rdquo; 2022.</li>
+              <li>Huang et al. &ldquo;Inner Monologue: Embodied Reasoning through Planning with Language Models.&rdquo; 2022.</li>
+              <li>Ren et al. &ldquo;Robots That Ask For Help: Uncertainty Alignment for Large Language Model Planners.&rdquo; 2023.</li>
+              <li>Zhang et al. &ldquo;HoloAssist: An Egocentric Human Interaction Dataset for Interactive AI Assistants.&rdquo; 2023.</li>
+              <li>Mottaghi et al. &ldquo;Alexa Arena: A User-Centric Interactive Platform for Embodied AI.&rdquo; 2023.</li>
+              <li>Gadre et al. &ldquo;Moving Forward by Moving Backward: Embedding Action Impact over Action Semantics.&rdquo; 2023.</li>
+              <li>Liang et al. &ldquo;Code as Policies: Language Model Programs for Embodied Control.&rdquo; 2023.</li>
+              <li>Song et al. &ldquo;LLM-Planner: Few-Shot Grounded Planning for Embodied Agents with Large Language Models.&rdquo; 2023.</li>
+              <li>Shinn et al. &ldquo;Reflexion: Language Agents with Verbal Reinforcement Learning.&rdquo; 2023.</li>
+              <li>Wu et al. &ldquo;Embodied Task Planning with Large Language Models.&rdquo; 2023.</li>
+              <li>Zhang et al. &ldquo;Digital Twin of Experience for Human-Robot Collaboration Through Virtual Reality.&rdquo; 2023.</li>
+              <li>Team ScottyBot. &ldquo;ScottyBot: A Modular Embodied Dialogue Agent.&rdquo; Alexa Prize SimBot Challenge, 2023.</li>
+              <li>Hu et al. &ldquo;Toward General-Purpose Robots via Foundation Models: A Survey and Meta-Analysis.&rdquo; 2023.</li>
+              <li>Ghorbani et al. &ldquo;EmotionGesture: Audio-Driven Diverse Emotional Co-Speech 3D Gesture Generation.&rdquo; 2023.</li>
+              <li>Sarch et al. &ldquo;Open-Ended Instructible Embodied Agents with Memory-Augmented Large Language Models.&rdquo; 2023.</li>
+              <li>Bisk et al. &ldquo;What a Situated Language-Using Agent Must Be Able to Do.&rdquo; 2023.</li>
+              <li>Hu et al. &ldquo;Dialogue Games for Benchmarking Language Understanding.&rdquo; 2023.</li>
+              <li>Chen et al. &ldquo;Asking before acting: gather information in embodied decision-making with language models.&rdquo; 2023.</li>
+              <li>Gao et al. &ldquo;Alexa Arena: A User-Centric Interactive Platform for Embodied AI.&rdquo; 2023.</li>
+              <li>Tang et al. &ldquo;SayTap: Language to quadrupedal locomotion.&rdquo; 2023.</li>
+              <li>Nottingham et al. &ldquo;Embodied Decision Making using Language Guided World Modeling.&rdquo; 2023.</li>
+              <li>Driess et al. &ldquo;PaLM-E: An Embodied Multimodal Language Model.&rdquo; 2023.</li>
+              <li>Zhou, Ce, et al. &ldquo;A comprehensive survey on pretrained foundation models: A history from BERT to ChatGPT.&rdquo; <em>International Journal of Machine Learning and Cybernetics</em> (2024): 1&ndash;65.</li>
+              <li>OpenAI et al. &ldquo;GPT-4 Technical Report.&rdquo; 2024.</li>
+              <li>Wang et al. &ldquo;Demonstrating HumanTHOR: A Simulation Platform and Benchmark for Human-Robot Collaboration in a Shared Workspace.&rdquo; 2024.</li>
+              <li>Ghosh et al. &ldquo;Octo: An Open-Source Generalist Robot Policy.&rdquo; 2024.</li>
+              <li>Dai et al. &ldquo;Think, Act, and Ask: Open-World Interactive Personalized Robot Navigation.&rdquo; 2024.</li>
+              <li>Singh et al. &ldquo;OpenEQA: Embodied Question Answering in the Era of Foundation Models.&rdquo; 2024.</li>
+              <li>Li et al. &ldquo;HM-EQA: A Benchmark for Human-Machine Embodied Question Answering.&rdquo; 2024.</li>
+              <li>Zhang et al. &ldquo;S-EQA: Situated Embodied Question Answering.&rdquo; 2024.</li>
+              <li>Zhu et al. &ldquo;Vision-Language Navigation with Embodied Intelligence: A Survey.&rdquo; 2024.</li>
+              <li>Zhang et al. &ldquo;Limits of Theory of Mind Modelling in Dialogue-Based Collaborative Plan Acquisition.&rdquo; 2024.</li>
+              <li>Yoo et al. &ldquo;Exploratory Retrieval-Augmented Planning For Continual Embodied Instruction Following.&rdquo; 2024.</li>
+              <li>Zhu et al. &ldquo;Retrieval-Augmented Embodied Agents.&rdquo; 2024.</li>
+              <li>Xie et al. &ldquo;Embodied-RAG: General Non-parametric Embodied Memory for Retrieval and Generation.&rdquo; 2024.</li>
+              <li>Sarch et al. &ldquo;HELPER-X: A unified instructible embodied agent to tackle four interactive vision-language domains with memory-augmented language models.&rdquo; 2024.</li>
+              <li>Kagaya et al. &ldquo;RAP: Retrieval-Augmented Planning with Contextual Memory for Multimodal LLM Agents.&rdquo; 2024.</li>
+              <li>Lee et al. &ldquo;LLM-Based Offline Learning for Embodied Agents via Consistency-Guided Reward Ensemble.&rdquo; 2024.</li>
+              <li>Chen et al. &ldquo;RoboGPT: an LLM-based Embodied Long-term Decision Making agent for Instruction Following Tasks.&rdquo; 2024.</li>
+              <li>Li et al. &ldquo;Embodied Agent Interface: Benchmarking LLMs for Embodied Decision Making.&rdquo; 2024.</li>
+              <li>Yenamandra et al. &ldquo;HomeRobot: Open-Vocabulary Mobile Manipulation.&rdquo; 2024.</li>
+              <li>Dongre et al. &ldquo;ReSpAct: Harmonizing Reasoning, Speaking, and Acting; Towards Building Large Language Model-Based Conversational AI Agents.&rdquo; 2024.</li>
+              <li>Kosinski, M. &ldquo;Evaluating large language models in theory of mind tasks.&rdquo; 2024.</li>
+              <li>&#304;nan et al. &ldquo;Better Slow than Sorry: Introducing Positive Friction for Reliable Dialogue Systems.&rdquo; 2025.</li>
+              <li>Li et al. &ldquo;Embodied Agent Interface: Benchmarking LLMs for Embodied Decision Making.&rdquo; 2025.</li>
+              <li>Min et al. &ldquo;Self-Regulation and Requesting Interventions.&rdquo; 2025.</li>
+              <li>Hu et al. &ldquo;ELEGNT: Expressive and Functional Movement Design for Non-anthropomorphic Robot.&rdquo; 2025.</li>
+              <li>Skantze, G., &amp; Irfan, B. &ldquo;Applying General Turn-taking Models to Conversational Human-Robot Interaction.&rdquo; 2025.</li>
+            </ol>
+          </section>
+
         </div>
-        <figcaption><b>Figure 2.</b> Stylized illustration of context drift accumulating over a multi-turn interaction. Two model variants are shown against a human reference; absolute scale is illustrative.</figcaption>
-      </figure>
 
-      <h2>What foundation models do not give us</h2>
+        <nav class="post-nav">
+          <a href="index.html">&larr; All notes</a>
+          <a href="../index.html">Home &rarr;</a>
+        </nav>
+      </article>
 
-      <p>Three things, at least:</p>
-
-      <ol>
-        <li><strong>Calibrated uncertainty over the physical scene.</strong> Vision-language models will happily describe what they see; they are much less willing to say what they are unsure about, and the failure mode is hallucinating reference rather than refusing it.</li>
-        <li><strong>Temporal commitments.</strong> A useful agent has to maintain commitments across turns — “okay, I'll watch for that” — and act on them later. Stateless prompting punts this to the application layer; nobody has a clean answer for it yet.</li>
-        <li><strong>A theory of the user.</strong> The model knows the world; it does not know <em>this person</em>, here, now, with their goals and constraints. The interesting alignment work is at this layer.</li>
-      </ol>
-
-      <h2>Where I think this goes</h2>
-
-      <p>The next round of progress will not come from larger models. It will come from designing training distributions that look like the deployment distribution: long, multi-turn, grounded, partial, and full of the small repairs that make human conversation work. The benchmarks we use today reward fluency at a single turn; they punish almost nothing that matters in deployment.</p>
-
-      <p>If you are an undergrad or master's student at UIUC interested in any of this, my door is open — there is plenty to do that does not require a 70B-parameter cluster.</p>
-
-    </div>
-
-    <section class="refs">
-      <h2>References</h2>
-      <ol>
-        <li>Cassell, J. <em>Embodied Conversational Agents</em>. MIT Press, 2000.</li>
-        <li>Bisk, Y. et al. “Experience Grounds Language.” <em>EMNLP</em>, 2020.</li>
-        <li>Padmakumar, A. et al. “TEACh: Task-driven Embodied Agents that Chat.” <em>AAAI</em>, 2022.</li>
-        <li>Dongre, V. et al. “Drift No More? Context Equilibria in Multi-Turn LLM Interactions.” <em>AAAI Workshop</em>, 2026.</li>
-      </ol>
-    </section>
-
-    <nav class="post-nav">
-      <a href="index.html">← All notes</a>
-      <a href="why-context-engineering-is-the-real-bottleneck.html">Next: Why Context Engineering Is the Real Bottleneck →</a>
-    </nav>
-
-  </article>
-
-  <footer class="site">
-    <span>© 2026 Vardhan Dongre</span>
-    <span><a href="../index.html">Back to home</a></span>
-  </footer>
+      <footer class="site">
+        <span>&copy; 2026 Vardhan Dongre</span>
+        <span><a href="../index.html">Back to home</a></span>
+      </footer>
 
     </div>
   </div>
 </div>
+
 <script src="../assets/site.js"></script>
 </body>
 </html>
