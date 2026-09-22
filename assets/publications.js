@@ -10,7 +10,7 @@ window.PUBLICATIONS = [
     title: "Trajectory-Level Redirection Attacks on Vision-Language-Action Models",
     authors: ["Gokul Puthumanaillam", "Vardhan Dongre", "Pranay Thangeda", "Hooshang Nayyeri", "Dilek Hakkani-Tür", "Melkior Ornik"],
     venue: "CoRL 2026", venueShort: "CoRL", year: 2026, type: "conference", selected: true,
-    thumb: "imgs/pubs/vla-redirection.jpg",
+    thumb: "imgs/pubs/vla-redirection.gif",
     links: { paper: "https://arxiv.org/abs/2606.12978" }
   },
   {
