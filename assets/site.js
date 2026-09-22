@@ -38,13 +38,6 @@
       item('notes', 'notes/index.html', 'Notes', 'notes') +
       item('contact', 'index.html#contact', 'Contact', 'contact') +
     '</nav>' +
-    '<div class="divider"></div>' +
-    '<div class="meta-links">' +
-      '<a href="https://scholar.google.com/citations?user=sSt2OvIAAAAJ&hl=en">Google Scholar</a>' +
-      '<a href="https://github.com/vardhandongre">GitHub</a>' +
-      '<a href="https://x.com/Vardhan_Dongre">X / Twitter</a>' +
-      '<a href="mailto:vdongre2@illinois.edu">Email</a>' +
-    '</div>' +
     '<div class="bottom">' +
       '<button class="theme-toggle" data-theme-toggle type="button" aria-label="Toggle theme">' + icons.sun + icons.moon + '</button>' +
       '<span>&copy; 2026</span>' +
