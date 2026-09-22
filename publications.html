@@ -16,11 +16,10 @@
   <div class="content">
     <div class="content-inner">
 
-      <div class="section-head" style="margin-top:0">
+      <div class="section-head" style="margin-top:0;margin-bottom:18px">
         <h1 style="font-size:34px">Publications</h1>
         <a class="more" href="https://scholar.google.com/citations?user=sSt2OvIAAAAJ&hl=en">Google Scholar &rarr;</a>
       </div>
-      <div class="stats" id="stats"></div>
 
       <div class="card">
         <div class="filters" role="group" aria-label="Filter by type">
@@ -50,19 +49,13 @@
   var container = document.getElementById('all-pubs');
   var all = renderPublications(container, { groupByYear: true, compact: true });
 
-  // Counts per type, shown on chips and in the stats row
+  // Counts per type, shown on the filter chips
   var counts = {};
   all.forEach(function(p){ counts[p.type] = (counts[p.type] || 0) + 1; });
   document.querySelectorAll('.chip').forEach(function(c){
     var t = c.dataset.type, n = t === 'all' ? all.length : (counts[t] || 0);
     c.insertAdjacentHTML('beforeend', '<span class="n">' + n + '</span>');
   });
-  var years = all.map(function(p){ return p.year; });
-  document.getElementById('stats').innerHTML =
-    '<div><b>' + all.length + '</b>papers</div>' +
-    '<div><b>' + (counts.conference || 0) + '</b>conference</div>' +
-    '<div><b>' + (counts.journal || 0) + '</b>journal</div>' +
-    '<div><b>' + Math.min.apply(null, years) + '&ndash;' + Math.max.apply(null, years) + '</b></div>';
 
   var empty = document.querySelector('.empty');
   function applyFilter(type){

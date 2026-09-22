@@ -185,10 +185,6 @@ html[data-theme="dark"] .theme-toggle .sun{display:none}
 .empty{font-family:var(--serif);font-style:italic;color:var(--muted);padding:28px 0;text-align:center}
 .empty[hidden]{display:none}
 
-.stats{display:flex;gap:26px;flex-wrap:wrap;margin:8px 0 22px 4px}
-.stats div{font-size:15px;color:var(--muted)}
-.stats b{font-family:var(--serif);font-size:24px;color:var(--ink);font-weight:500;margin-right:6px}
-
 /* --- Notes list ---------------------------------------------------------- */
 .post-list{display:flex;flex-direction:column}
 .post-row{display:grid;grid-template-columns:1fr auto;gap:6px 20px;padding:16px 0;border-top:1px solid var(--rule);align-items:baseline}
