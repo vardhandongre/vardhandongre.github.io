@@ -3,6 +3,14 @@
    then add an entry here. Both notes/index.html and the home page read this. */
 window.POSTS = [
   {
+    slug: "understanding-rl-visualization",
+    title: "Understanding Visualizations in Reinforcement Learning",
+    date: "2026-09-21",
+    summary: "A field guide to the handful of plot types that carry almost every result in RL for language and vision-language models: what each is for, how to read it, which clock its x-axis runs on, and where it misleads.",
+    tags: ["Reinforcement Learning", "LLMs", "Visualization"],
+    minutes: 56
+  },
+  {
     slug: "embodied-conversational-agents",
     title: "Embodied Conversational Agents and the Promise of Foundation Models",
     date: "2025-03-08",
