@@ -4,11 +4,13 @@
    - `thumb` is optional; drop an image in imgs/pubs/ and reference it here.
      Without one, the tile shows `venueShort` (or the first word of `venue`).
    - `note` shows as a small badge next to the venue (e.g. "Oral", "Spotlight").
+   - `equal` lists authors to mark with * (equal contribution); a footnote is added.
    Ordered newest first within a year; the renderer groups by `year`. */
 window.PUBLICATIONS = [
   {
     title: "Trajectory-Level Redirection Attacks on Vision-Language-Action Models",
     authors: ["Gokul Puthumanaillam", "Vardhan Dongre", "Pranay Thangeda", "Hooshang Nayyeri", "Dilek Hakkani-Tür", "Melkior Ornik"],
+    equal: ["Gokul Puthumanaillam", "Vardhan Dongre"],
     venue: "CoRL 2026", venueShort: "CoRL", year: 2026, type: "conference", selected: true,
     thumb: "imgs/pubs/vla-redirection.gif",
     links: { paper: "https://arxiv.org/abs/2606.12978" }
@@ -108,7 +110,12 @@ window.renderPublications = function(container, opts){
   var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
 
   function entry(p){
-    var authors = p.authors.map(function(a){ return a === ME ? '<span class="me">' + esc(a) + '</span>' : esc(a); }).join(', ');
+    var eq = p.equal || [];
+    var authors = p.authors.map(function(a){
+      var name = a === ME ? '<span class="me">' + esc(a) + '</span>' : esc(a);
+      return eq.indexOf(a) >= 0 ? name + '<sup class="eq">*</sup>' : name;
+    }).join(', ');
+    if (eq.length) authors += ' <span class="eqnote"><sup class="eq">*</sup>equal contribution</span>';
     var links = Object.keys(p.links || {}).map(function(k){
       return '<a href="' + esc(p.links[k]) + '" target="_blank" rel="noopener">' + esc(k) + '</a>';
     }).join('');
