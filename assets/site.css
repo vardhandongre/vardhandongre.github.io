@@ -24,7 +24,7 @@
   --sans:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --mono:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --sidebar-w:220px;
-  --content-w:760px;
+  --content-w:840px;
 }
 html[data-theme="dark"]{
   --bg:#141414;
@@ -86,9 +86,9 @@ html[data-theme="dark"] .theme-toggle .moon{display:block}
 html[data-theme="dark"] .theme-toggle .sun{display:none}
 .sidebar .bottom span{font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.04em}
 
-.content{flex:1;min-width:0;padding:44px 40px 96px 44px}
-.content-inner{max-width:var(--content-w)}
-.content-inner.wide{max-width:900px}
+.content{flex:1;min-width:0;padding:44px 40px 96px 40px;display:flex;justify-content:center}
+.content-inner{width:100%;max-width:var(--content-w)}
+.content-inner.wide{max-width:960px}
 
 /* Mobile: top bar + slide-in sidebar */
 .topbar{display:none}
@@ -101,7 +101,7 @@ html[data-theme="dark"] .theme-toggle .sun{display:none}
   .sidebar.open{transform:translateX(0)}
   .scrim{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:55;opacity:0;pointer-events:none;transition:opacity .25s}
   .scrim.show{opacity:1;pointer-events:auto}
-  .content{padding:24px 16px 72px}
+  .content{padding:24px 16px 72px;display:block}
 }
 
 /* --- Cards & sections ---------------------------------------------------- */
