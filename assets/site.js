@@ -1,5 +1,5 @@
-/* Site chrome shared by every page: sidebar nav, mobile drawer, theme toggle,
-   backdrop ornament. Pages opt in with:
+/* Site chrome shared by every page: sidebar nav, mobile drawer, theme toggle.
+   Pages opt in with:
 
      <body data-root="../" data-page="notes">
      <script src="../assets/site.js"></script>
@@ -58,30 +58,11 @@
   var scrim = document.createElement('div');
   scrim.className = 'scrim';
 
-  var backdrop = document.createElement('div');
-  backdrop.className = 'backdrop';
-  backdrop.setAttribute('aria-hidden', 'true');
-  backdrop.innerHTML =
-    '<svg viewBox="0 0 520 640" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round">' +
-      '<path d="M420 20c-40 60-110 70-150 140s10 150-60 200-160 40-190 120"/>' +
-      '<path d="M470 40c-30 80-120 90-160 160s0 140-70 190-150 50-180 130"/>' +
-      '<path d="M500 90c-20 70-100 100-140 170s-10 130-80 180-130 60-160 140"/>' +
-      '<path d="M380 10c-60 50-100 120-90 200s60 120 10 190-120 90-130 170"/>' +
-      '<path d="M440 0c-70 40-120 110-100 190s70 110 30 180-110 100-120 180" opacity=".6"/>' +
-      '<path d="M510 160c-40 40-110 60-140 130s20 120-40 170-120 60-150 140" opacity=".6"/>' +
-      '<path d="M350 60c-30 90 20 150-20 220s-110 80-100 170" opacity=".5"/>' +
-      '<path d="M480 240c-60 30-90 100-90 170s-60 100-110 150" opacity=".5"/>' +
-      '<circle cx="404" cy="132" r="2.5" fill="currentColor" stroke="none" opacity=".7"/>' +
-      '<circle cx="318" cy="342" r="2" fill="currentColor" stroke="none" opacity=".7"/>' +
-      '<circle cx="452" cy="286" r="2" fill="currentColor" stroke="none" opacity=".7"/>' +
-    '</svg>';
-
   var shell = document.querySelector('.shell');
   if (shell){
     shell.insertBefore(sidebar, shell.firstChild);
     document.body.insertBefore(topbar, shell);
     document.body.insertBefore(scrim, shell);
-    document.body.insertBefore(backdrop, document.body.firstChild);
   }
 
   // Mobile drawer
