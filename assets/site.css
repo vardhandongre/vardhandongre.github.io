@@ -275,6 +275,8 @@ footer.site a:hover{color:var(--accent-ink)}
 .info .info-block a{color:var(--accent-ink)}
 .info .links{display:flex;flex-direction:column;gap:4px}
 .info hr{border:0;border-top:1px solid var(--rule);margin:16px 0}
+.info .org{display:flex;gap:10px;align-items:flex-start}
+.info .org-logo{width:34px;height:34px;object-fit:contain;flex-shrink:0;border:1px solid var(--rule);border-radius:6px;background:#fff;padding:5px;margin-top:2px}
 .hero .bio b{color:var(--ink);font-weight:600}
 @media(max-width:1000px){
   .home-grid{grid-template-columns:1fr}
