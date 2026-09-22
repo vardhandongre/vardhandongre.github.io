@@ -4,7 +4,7 @@
 window.POSTS = [
   {
     slug: "understanding-rl-visualization",
-    title: "Understanding Visualizations in Reinforcement Learning",
+    title: "Understanding Visualizations in Reinforcement Learning Research",
     date: "2026-09-21",
     summary: "A field guide to the handful of plot types that carry almost every result in RL for language and vision-language models: what each is for, how to read it, which clock its x-axis runs on, and where it misleads.",
     tags: ["Reinforcement Learning", "LLMs", "Visualization"],
