@@ -20,7 +20,7 @@ window.PUBLICATIONS = [
     authors: ["Vardhan Dongre", "Dilek Hakkani-Tür"],
     venue: "SIGDIAL", year: 2026, type: "conference", selected: true,
     thumb: "imgs/pubs/embodied-coordination.jpg",
-    links: { paper: "https://arxiv.org/abs/2605.12920" }
+    links: { paper: "https://arxiv.org/abs/2605.12920", website: "https://uiuc-conversational-ai-lab.github.io/partnr-dial-wmd/" }
   },
   {
     title: "When Attention Closes: How LLMs Lose the Thread in Multi-Turn Interaction",
