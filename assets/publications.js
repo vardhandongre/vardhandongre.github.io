@@ -13,7 +13,7 @@ window.PUBLICATIONS = [
     equal: ["Gokul Puthumanaillam", "Vardhan Dongre"],
     venue: "CoRL 2026", venueShort: "CoRL", year: 2026, type: "conference", selected: true,
     thumb: "imgs/pubs/vla-redirection.gif",
-    links: { paper: "https://arxiv.org/abs/2606.12978" }
+    links: { paper: "https://arxiv.org/abs/2606.12978", website: "https://vardhandongre.github.io/traj-attack-vla/" }
   },
   {
     title: "Embodied Multi-Agent Coordination by Aligning World Models Through Dialogue",
@@ -48,7 +48,7 @@ window.PUBLICATIONS = [
     authors: ["Vardhan Dongre", "Chi Gui", "Shubham Garg", "Hooshang Nayyeri", "Gokhan Tur", "Dilek Hakkani-Tür", "Vikram S. Adve"],
     venue: "NeurIPS 2025, Datasets & Benchmarks", venueShort: "NeurIPS", year: 2025, type: "conference", selected: true,
     thumb: "imgs/pubs/mirage.jpg",
-    links: { paper: "https://arxiv.org/abs/2506.20100", code: "https://github.com/MIRAGE-Benchmark/MIRAGE-Benchmark", leaderboard: "https://mirage-benchmark.github.io/" }
+    links: { paper: "https://arxiv.org/abs/2506.20100", website: "https://mirage-benchmark.github.io/", code: "https://github.com/MIRAGE-Benchmark/MIRAGE-Benchmark" }
   },
   {
     title: "A Desideratum for Conversational Agents: Capabilities, Challenges, and Future Directions",
@@ -69,7 +69,7 @@ window.PUBLICATIONS = [
     authors: ["Vardhan Dongre", "Xiaocheng Yang", "Emre Can Acikgoz", "Suvodip Dey", "Gokhan Tur", "Dilek Hakkani-Tür"],
     venue: "IWSDS 2024", year: 2024, type: "conference", note: "Oral", selected: true,
     thumb: "imgs/pubs/respact.jpg",
-    links: { paper: "https://arxiv.org/abs/2411.00927", code: "https://github.com/vardhandongre/Respact" }
+    links: { paper: "https://arxiv.org/abs/2411.00927", website: "https://vardhandongre.github.io/respact-llm/", code: "https://github.com/vardhandongre/Respact" }
   },
   {
     title: "Simulating User Agents for Embodied Conversational AI",
