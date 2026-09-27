@@ -48,7 +48,7 @@ window.PUBLICATIONS = [
     authors: ["Vardhan Dongre", "Chi Gui", "Shubham Garg", "Hooshang Nayyeri", "Gokhan Tur", "Dilek Hakkani-Tür", "Vikram S. Adve"],
     venue: "NeurIPS 2025, Datasets & Benchmarks", venueShort: "NeurIPS", year: 2025, type: "conference", selected: true,
     thumb: "imgs/pubs/mirage.jpg",
-    links: { paper: "https://arxiv.org/abs/2506.20100", website: "https://mirage-benchmark.github.io/", code: "https://github.com/MIRAGE-Benchmark/MIRAGE-Benchmark" }
+    links: { paper: "https://arxiv.org/abs/2506.20100", website: "https://mirage-benchmark.github.io/", code: "https://github.com/MIRAGE-Benchmark/MIRAGE-Benchmark", dataset: "https://huggingface.co/datasets/MIRAGE-Benchmark/MIRAGE" }
   },
   {
     title: "A Desideratum for Conversational Agents: Capabilities, Challenges, and Future Directions",
