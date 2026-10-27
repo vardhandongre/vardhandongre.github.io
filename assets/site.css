@@ -101,10 +101,9 @@ html[data-theme="dark"] .theme-toggle .sun{display:none}
 }
 
 /* --- Cards & sections ---------------------------------------------------- */
-.card{background:var(--card);border:1px solid var(--rule);border-radius:8px;padding:26px 30px}
-@media(max-width:600px){.card{padding:20px 18px}}
-.section{margin-top:34px}
-.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:0 0 14px 4px}
+.card{background:transparent;border:0;padding:0}
+.section{margin-top:44px;padding-top:28px;border-top:1px solid var(--rule)}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:0 0 14px}
 .section-head h2{font-size:28px;font-weight:500}
 .section-head a.more{font-size:15px;color:var(--muted);border:0}
 .section-head a.more:hover{color:var(--accent-ink)}
