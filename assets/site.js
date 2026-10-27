@@ -29,7 +29,6 @@
   var sidebar = document.createElement('aside');
   sidebar.className = 'sidebar';
   sidebar.innerHTML =
-    '<a class="brand" href="' + root + 'index.html">Vardhan Dongre</a>' +
     '<nav aria-label="Primary">' +
       item('home', 'index.html', 'Home', 'home') +
       item('research', 'index.html#research', 'Research', 'research') +

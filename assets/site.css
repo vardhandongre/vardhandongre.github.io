@@ -61,9 +61,7 @@ button{font-family:inherit}
 /* --- Shell: sidebar + content ------------------------------------------- */
 .shell{position:relative;z-index:1;display:flex;min-height:100vh}
 
-.sidebar{width:var(--sidebar-w);flex-shrink:0;position:sticky;top:0;height:100vh;padding:28px 18px 28px 26px;display:flex;flex-direction:column;gap:6px}
-.sidebar .brand{font-family:var(--serif);font-size:17.5px;color:var(--ink);border:0;margin:0 0 22px 10px;display:block;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
-.sidebar .brand:hover{color:var(--accent-ink)}
+.sidebar{width:var(--sidebar-w);flex-shrink:0;position:sticky;top:0;height:100vh;padding:44px 18px 28px 26px;display:flex;flex-direction:column;gap:6px}
 .sidebar nav a{display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:6px;color:var(--ink-soft);font-size:16px;font-weight:500;border:0;transition:background .15s,color .15s}
 .sidebar nav a svg{width:18px;height:18px;flex-shrink:0;opacity:.6;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .sidebar nav a:hover{background:var(--card-2);color:var(--ink)}
