@@ -90,8 +90,9 @@ html[data-theme="dark"] .theme-toggle .sun{display:none}
   .shell{display:block}
   .topbar{display:flex;position:sticky;top:0;z-index:50;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--bg);border-bottom:1px solid var(--rule)}
   .topbar .brand{font-family:var(--serif);font-variant:small-caps;letter-spacing:.06em;font-size:19px;color:var(--ink);border:0}
-  .topbar button{appearance:none;background:none;border:1px solid var(--rule-strong);color:var(--ink);border-radius:6px;padding:6px 10px;font-size:18px;line-height:1;cursor:pointer}
-  .sidebar{position:fixed;top:0;left:0;height:100vh;width:260px;background:var(--bg);border-right:1px solid var(--rule);box-shadow:2px 0 24px rgba(0,0,0,.12);transform:translateX(-102%);transition:transform .25s ease;z-index:60;overflow-y:auto}
+  .topbar .actions{display:flex;align-items:center;gap:10px}
+  .topbar button[data-menu]{appearance:none;background:none;border:1px solid var(--rule-strong);color:var(--ink);border-radius:6px;padding:6px 10px;font-size:18px;line-height:1;cursor:pointer}
+  .sidebar{position:fixed;top:0;left:0;height:100vh;height:100dvh;width:260px;background:var(--bg);border-right:1px solid var(--rule);box-shadow:2px 0 24px rgba(0,0,0,.12);transform:translateX(-102%);transition:transform .25s ease;z-index:60;overflow-y:auto}
   .sidebar.open{transform:translateX(0)}
   .scrim{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:55;opacity:0;pointer-events:none;transition:opacity .25s}
   .scrim.show{opacity:1;pointer-events:auto}

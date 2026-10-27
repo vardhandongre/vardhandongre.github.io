@@ -45,7 +45,10 @@
   var topbar = document.createElement('div');
   topbar.className = 'topbar';
   topbar.innerHTML = '<a class="brand" href="' + root + 'index.html">Vardhan Dongre</a>' +
-    '<button type="button" aria-label="Open menu" data-menu>&#9776;</button>';
+    '<div class="actions">' +
+      '<button class="theme-toggle" data-theme-toggle type="button" aria-label="Toggle theme">' + icons.sun + icons.moon + '</button>' +
+      '<button type="button" aria-label="Open menu" data-menu>&#9776;</button>' +
+    '</div>';
 
   var scrim = document.createElement('div');
   scrim.className = 'scrim';
