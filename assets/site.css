@@ -127,9 +127,10 @@ html[data-theme="dark"] .theme-toggle .sun{display:none}
 .prose a{color:var(--accent-ink)}
 .prose strong{color:var(--ink);font-weight:600}
 
-/* Interests: pills */
-.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.pills span{font-size:14px;padding:5px 11px;border-radius:999px;border:1px solid var(--rule-strong);color:var(--ink-soft);background:var(--card-2)}
+/* Interests: slash-separated line */
+.interests{margin:14px 0 0;font-size:16px;color:var(--ink-soft)}
+.interests b{color:var(--ink);font-weight:600;margin-right:4px}
+.interests .sep{color:var(--faint);margin:0 6px}
 
 /* --- News rows ----------------------------------------------------------- */
 .rows{display:grid;grid-template-columns:80px 1fr;gap:12px 20px}
