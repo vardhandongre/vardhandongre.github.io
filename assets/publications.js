@@ -30,6 +30,12 @@ window.PUBLICATIONS = [
     links: { paper: "https://arxiv.org/abs/2605.12922" }
   },
   {
+    title: "AgriManager: A Framework and Benchmark for LLM-RL Generalization in Agricultural Management",
+    authors: ["Chi Gui", "Junwen Zheng", "Ritwik Nigam", "Qianlan Yang", "Meagan Lang", "Vardhan Dongre", "Jeremiah Barr", "Yu-Xiong Wang", "Vikram S. Adve"],
+    venue: "NeurIPS 2026, Evaluations & Datasets Track", venueShort: "NeurIPS", year: 2026, type: "conference",
+    links: {}
+  },
+  {
     title: "Drift No More? Context Equilibria in Multi-Turn LLM Interactions",
     authors: ["Vardhan Dongre", "Ryan A. Rossi", "Viet Dac Lai", "David Seunghyun Yoon", "Dilek Hakkani-Tür", "Trung Bui"],
     venue: "AAAI 2026 Workshops — Trustworthy Agents; Personalization for Foundation Models", year: 2025, type: "workshop", note: "Oral Spotlight",
