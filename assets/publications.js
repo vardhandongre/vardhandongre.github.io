@@ -25,7 +25,7 @@ window.PUBLICATIONS = [
   {
     title: "When Attention Closes: How LLMs Lose the Thread in Multi-Turn Interaction",
     authors: ["Vardhan Dongre", "Joseph Hsieh", "Viet Dac Lai", "Seunghyun Yoon", "Trung Bui", "Dilek Hakkani-Tür"],
-    venue: "arXiv preprint", year: 2026, type: "preprint", selected: true,
+    venue: "NeurIPS 2026, Main", venueShort: "NeurIPS", year: 2026, type: "conference", selected: true,
     thumb: "imgs/pubs/attention-closes.jpg",
     links: { paper: "https://arxiv.org/abs/2605.12922" }
   },
