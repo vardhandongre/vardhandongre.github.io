@@ -32,9 +32,9 @@ window.PUBLICATIONS = [
   {
     title: "AgriManager: A Framework and Benchmark for LLM-RL Generalization in Agricultural Management",
     authors: ["Chi Gui", "Junwen Zheng", "Ritwik Nigam", "Qianlan Yang", "Meagan Lang", "Vardhan Dongre", "Jeremiah Barr", "Yu-Xiong Wang", "Vikram S. Adve"],
-    venue: "NeurIPS 2026, Evaluations & Datasets Track", venueShort: "NeurIPS", year: 2026, type: "conference",
+    venue: "NeurIPS 2026, Evaluations & Datasets (E&D) Track", venueShort: "NeurIPS", year: 2026, type: "conference",
     thumb: "imgs/pubs/agrimanager.jpg",
-    links: { paper: "#", website: "http://mll-4090-1.cs.northwestern.edu:8042/agri/site3/" }   // paper: placeholder until the PDF/arXiv link exists
+    links: { paper: "https://arxiv.org/abs/2611.28844", website: "https://agrimanager-framework.github.io/" }
   },
   {
     title: "Drift No More? Context Equilibria in Multi-Turn LLM Interactions",
